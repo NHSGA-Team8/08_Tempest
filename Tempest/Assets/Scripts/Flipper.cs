@@ -164,7 +164,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	}
 
 	//void OnCollisionEnter(Collision collider) {
-	void onTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
 		/*
 		if (collider.gameObject.GetComponent<PlayerShip> ()) {
@@ -172,7 +172,9 @@ public class Flipper : MonoBehaviour, IShipBase
 			OnDeath ();
 		}
 		*/
-		if (other.GetType() == typeof(PlayerShip)) {
+		//if (other.GetType() == typeof(PlayerShip))
+		if (other.gameObject.tag == "Player") 
+		{
 			other.gameObject.GetComponent<PlayerShip> ().TakeDamage (1);
 			OnDeath ();
 		}

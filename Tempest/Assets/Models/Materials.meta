@@ -1,4 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: eb6bd90a63bef2740aeb902bb061a51e
+folderAsset: yes
+=======
+<<<<<<< HEAD
+guid: f87dd8c538ba1674994341956d903cd5
+folderAsset: yes
+=======
 <<<<<<< HEAD:Tempest/Assets/Models/Materials.meta
 guid: f3184acf8ec1aba408a0913d0751db84
 folderAsset: yes
@@ -9,6 +17,8 @@ folderAsset: yes
 timeCreated: 1500082721
 >>>>>>> ffe26abcef3bb9079131114987112615f81a02b2:Tempest/Assets/Models/Materials.meta
 licenseType: Free
+>>>>>>> 7942aacc385575ff0c29df1b85be67446350a491
+>>>>>>> 9c0e817cda60d59dd319d274e6cd20c597d9e51b
 DefaultImporter:
   userData: 
   assetBundleName: 
