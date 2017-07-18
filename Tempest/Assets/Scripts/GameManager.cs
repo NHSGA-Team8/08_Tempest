@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
 	public int nextScene;
 	public int totalLives;
 	public Camera camera;
-	public Image flash;
 
 	public Canvas uiCanvas;
 	public Text notification;
@@ -69,11 +68,11 @@ public class GameManager : MonoBehaviour {
 		if (curLives < 0)
 		{
 			// Back to menu if dead
-			SceneManager.LoadScene(0);
+			//SceneManager.LoadScene(0);
 		}
 		else
 		{
-			SceneManager.LoadScene(0);
+			// Next level if win
 		}
 	}
 
@@ -96,10 +95,8 @@ public class GameManager : MonoBehaviour {
 		SetEndMessage();
 		if (curLives >= 0) {
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
-			StartCoroutine (FlashScreen (3,0.1f));
 		}
-		yield return new WaitForSeconds(5);
-
+		yield return new WaitForSeconds(3);
 	}
 
 	void SpawnPlayerShip() {
@@ -182,20 +179,5 @@ public class GameManager : MonoBehaviour {
 			msg = "Round Complete";
 
 		notification.text = msg;
-	}
-
-	private IEnumerator FlashScreen (int duration, float speed)
-	{
-		for (int i = 0; i < 255; i++)
-		{
-			flash.color = new Color (255, 255, 255, i);
-			yield return new WaitForSeconds (speed);
-		}
-		yield return new WaitForSeconds (duration);
-		for (int i = 255; i >= 0; i--)
-		{
-			flash.color = new Color (255, 255, 255, i);
-			yield return new WaitForSeconds (speed);
-		}
 	}
 }
