@@ -172,12 +172,18 @@ public class Flipper : MonoBehaviour, IShipBase
 			OnDeath ();
 		}
 		*/
+		if (other.gameObject.GetComponent<PlayerShip> ()) {
+			other.gameObject.GetComponent<PlayerShip> ().TakeDamage (1);
+			OnDeath ();
+		}
 		//if (other.GetType() == typeof(PlayerShip))
+		/*
 		if (other.gameObject.tag == "Player") 
 		{
 			other.gameObject.GetComponent<PlayerShip> ().TakeDamage (1);
 			OnDeath ();
 		}
+		*/
 	}
 
 	public bool GetStraightMovement()
