@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
 		SetEndMessage();
 		if (curLives >= 0) {
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
-			StartCoroutine(FlashScreen (1f));
+			StartCoroutine(FlashScreen (2.5f, 1.5f));
 		}
 		yield return new WaitForSeconds(3);
 	}
@@ -183,7 +183,8 @@ public class GameManager : MonoBehaviour {
 		notification.text = msg;
 	}
 
-	public IEnumerator FlashScreen(float duration) {
+	public IEnumerator FlashScreen(float wait, float duration) {
+		yield return new WaitForSeconds (wait);
 		for (int i = 0; i <= 255; i++) {
 			flash.color = new Color (1f, 1f, 1f, ((float)i / 255f));
 			yield return new WaitForSeconds (duration / 255);

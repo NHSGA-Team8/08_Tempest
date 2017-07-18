@@ -164,7 +164,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	}
 
 	//void OnCollisionEnter(Collision collider) {
-	void onTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
 		/*
 		if (collider.gameObject.GetComponent<PlayerShip> ()) {
