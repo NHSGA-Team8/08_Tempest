@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour, IShipBase {
 
 	// The axis used to take input.
+	public Camera camera;
 	public string inputAxis = "Horizontal";
 	public float moveSpeed = 5f;
 	public Rigidbody bullet;
@@ -20,6 +21,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	public AudioClip soundFire;
 	public AudioClip soundDeath;
 	public AudioClip soundZapper;
+
+	public bool legacyMovement = false;
 
 	[HideInInspector] public bool movingForward = false;
 
@@ -35,6 +38,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	private float _godTimer;
 	private AudioSource _audioSource;
 	private bool _zapperReady;
+	private MapLine targetMapLine;
 
 	// Use this for initialization
 	void Start () {
@@ -58,10 +62,26 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 
 	void FixedUpdate(){
 
-		_inputValue = Input.GetAxis (inputAxis);
-
 		if (curMapLine == null) {
 			curMapLine = _mapManager.mapLines [2];
+		}
+
+
+		if (legacyMovement == true) {
+			_inputValue = Input.GetAxis (inputAxis);
+
+
+		} else {
+			Vector3 mousePos = Input.mousePosition;
+			targetMapLine = curMapLine;
+			foreach (MapLine ml in _mapManager.mapLines) {
+				Vector3 MLPos = camera.WorldToScreenPoint (ml.GetMidPoint ());
+				Vector3 curMLPos = camera.WorldToScreenPoint (targetMapLine.GetMidPoint ());
+				if (Vector3.Distance (mousePos, MLPos) < Vector3.Distance (mousePos, curMLPos)) {
+					targetMapLine = ml;
+				}
+			}
+			curMapLine = targetMapLine;
 		}
 
 		Move ();
@@ -79,20 +99,35 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 
 	// Called each update to move sideways
 	void Move(){
-		Vector3 newPos;
-		MapLine newMapLine;
-		Quaternion newQuat;
+		if (legacyMovement == true) {
+			Vector3 newPos;
+			MapLine newMapLine;
+			Quaternion newQuat;
 
-		curMapLine.UpdateMovement (transform.position, Time.deltaTime * _inputValue * moveSpeed, out newPos, out newMapLine);
+			curMapLine.UpdateMovement (transform.position, Time.deltaTime * _inputValue * moveSpeed, out newPos, out newMapLine);
 
-		if (movingForward == true) {
-			newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
-		}
+			if (movingForward == true) {
+				newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
+			}
 
-		_rigidbody.MovePosition (newPos);
+			_rigidbody.MovePosition (newPos);
 
-		if (newMapLine != null) {
-			curMapLine = newMapLine;
+			if (newMapLine != null) {
+				curMapLine = newMapLine;
+			}
+		} else {
+			//Debug.DrawLine (targetMapLine.startPos, targetMapLine.endPos);
+			Vector3 newPos = curMapLine.GetMidPoint();
+			if (movingForward == true) {
+				newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
+			}
+
+			_rigidbody.MovePosition (newPos);
+
+			Vector3 curDirVec = curMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+			//print (Quaternion.Euler(newDirVec));
+			_rigidbody.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
 		}
 	}
 
@@ -103,7 +138,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		_audioSource.Play ();
 		Rigidbody shellInstance = Instantiate (bullet, fireTransform.position, fireTransform.rotation) as Rigidbody;
 		shellInstance.GetComponent<PlayerBullet> ().SetShip (gameObject);
-		shellInstance.velocity = 10f * (fireTransform.forward); 
+		shellInstance.velocity = 20f * (fireTransform.forward); 
 	}
 
 	void Zapper() {
