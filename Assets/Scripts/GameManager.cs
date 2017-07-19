@@ -42,22 +42,31 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector] public int curLives;
 
 	private float _lastSpawn;
+	private float _startTime;
+
 	private int _flipperCount;
 	private int _tankerCount;
-	private float _startTime;
+	private int _enemiesCount;
+	private int _totalEnemies;
+	private int _remainingEnemies;
+
 	private GameObject _playerRef;
 	private MapManager _mapManager;
 	private AudioSource _audioSource;
 
-	private int _remainingEnemies;
+
 
 	// Use this for initialization
 	void Start () {
 		_mapManager = GameObject.Find ("MapManager").GetComponent<MapManager> ();
 		_playerRef = GameObject.Find ("Player");
 		_audioSource = cam.GetComponent<AudioSource> ();
+
 		_flipperCount = 0;
 		_tankerCount = 0;
+		_enemiesCount = 0;
+		_totalEnemies = totalFlippers + totalTankers;
+		_remainingEnemies = _totalEnemies;
 
 		if (currentRound == 1) {
 			GlobalVariables.Reset ();
@@ -102,7 +111,7 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundPlaying() {
 
-		while (curLives >= 0 && !(EnemiesAtEdge() == true || _remainingEnemies <= 0))
+		while (!(GlobalVariables.lives < 0 || (EnemiesAtEdge() == true && _enemiesCount >= _totalEnemies) || _remainingEnemies <= 0)) // !(EnemiesAtEdge() == true && _remainingEnemies > 0 || _remainingEnemies > 0) 
 			yield return null;
 	}
 
@@ -145,7 +154,7 @@ public class GameManager : MonoBehaviour {
 
 	private void SpawnEnemyShips ()
 	{
-		_remainingEnemies = totalFlippers + totalTankers; // Add new enemies to this
+		
 		StartCoroutine(SpawnFlippers ());
 		StartCoroutine(SpawnTankers ());
 	}
@@ -155,6 +164,7 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < totalFlippers; i++)
 		{
 			_flipperCount++;
+			_enemiesCount++;
 			SpawnFlipper ();
 			yield return new WaitForSeconds (flipperSpawnDelay);
 		}
@@ -165,6 +175,7 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < totalTankers; i++)
 		{
 			_tankerCount++;
+			_enemiesCount++;
 			SpawnTanker();
 			yield return new WaitForSeconds (tankerSpawnDelay);
 		}
@@ -228,7 +239,7 @@ public class GameManager : MonoBehaviour {
 	}
 	public void TankerDestroyed() {
 		EnemyDestroyed ("Tanker");
-		GlobalVariables.score += 150;
+		GlobalVariables.score += 100;
 	}
 
 	void EnemyDestroyed(string type) {
