@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 388281287}
   - component: {fileID: 388281286}
   - component: {fileID: 388281291}
+  - component: {fileID: 388281292}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -552,6 +553,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: -2.2
   playerRef: {fileID: 373287952}
+--- !u!82 &388281292
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 388281285}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &388674932
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +957,11 @@ MonoBehaviour:
   - {x: -1, y: 0, z: 0}
   isLoop: 1
   startMapLineIndex: 2
+<<<<<<< HEAD
+  depth: 20
+=======
   depth: 30
+>>>>>>> 2f9d3eb6dffd314aa76c4f4a78866cb71b4ead26
 --- !u!4 &844447045
 Transform:
   m_ObjectHideFlags: 0
@@ -890,67 +975,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 39.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.391
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.377
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 558521736d9dc0249afdc934d22051c9, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1 &1068051022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,12 +1115,13 @@ MonoBehaviour:
   nextScene: 2
   totalLives: 3
   cam: {fileID: 388281289}
-  speedMulti: 5
+  speedMulti: 3
   uiCanvas: {fileID: 1247648972}
   notification: {fileID: 1474811620}
   flash: {fileID: 152676656}
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
+  ac_portal: {fileID: 8300000, guid: 7e218b73611e11b479bce3e18bf929b2, type: 3}
   flipperShell: {fileID: 1638749284954108, guid: 95d8750e340b04e459a19c653fd8a887,
     type: 2}
   curGamestate: 0

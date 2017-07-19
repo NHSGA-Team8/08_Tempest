@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
 
 	public AudioClip ac_portalEnter;
 	public AudioClip ac_portalDuring;
+	public AudioClip ac_portal;
 
 	public GameObject flipperShell; //Enemy Projectile
 
@@ -88,9 +89,9 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundStarting() {
 		SpawnPlayerShip ();
-		SpawnEnemyShips();
+		SpawnEnemyShips ();
 
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(1);
 		_startTime = Time.fixedTime;
 	}
 
@@ -105,7 +106,9 @@ public class GameManager : MonoBehaviour {
 		SetEndMessage();
 		if (curLives >= 0) {
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
-			StartCoroutine(FlashScreen (1f, 1f));
+			_audioSource.clip = ac_portalEnter;
+			_audioSource.Play ();
+			StartCoroutine(FlashScreen (0.5f, 1f));
 		}
 		yield return new WaitForSeconds(2);
 	}
