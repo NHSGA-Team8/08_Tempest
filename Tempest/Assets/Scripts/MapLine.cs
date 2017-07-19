@@ -162,4 +162,17 @@ public class MapLine {
 	{
 		_num = newNum;
 	}
+
+	public int getShortestDist(MapLine lastMapLine, MapLine targetMapLine) {
+		if (targetMapLine == this)
+			return 0;
+		else if (leftLine == lastMapLine && rightLine != null)
+			return rightLine.getShortestDist (this, targetMapLine) + 1;
+		else if (rightLine == lastMapLine && leftLine != null)
+			return leftLine.getShortestDist (this, targetMapLine) + 1;
+		else {
+			Debug.Log ("getShortestDist encounters incorrect condition");
+			return 1000000000;
+		}
+	}
 }
