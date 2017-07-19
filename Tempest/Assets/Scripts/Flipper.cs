@@ -136,13 +136,14 @@ public class Flipper : MonoBehaviour, IShipBase
 
 			rb.MovePosition (transform.position + transform.forward * (Time.deltaTime * movementForce * -1));
 		}
-		else
+		else //Switching lanes
 		{
 			Vector3 _newPos;
 			MapLine _newMapLine, _nextMapLine;
+			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 			//Move forward by one or a few pixels
 			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * 1 * movementForce * 0.2f, out _newPos, out _newMapLine);
-			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, transform.position.z + transform.forward * (Time.deltaTime * movementForce * -1)));
+			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, _newPosZ.z));
 			//While moving to next section of map
 			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, transform.position.z);
