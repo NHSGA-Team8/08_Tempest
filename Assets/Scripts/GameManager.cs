@@ -10,14 +10,19 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
 	public GameObject flipperPrefab;
+	public GameObject tankerPrefab;
 	public GameObject spawnEffect;
 	public int totalFlippers;
-	public float spawnDelay;
+	public int totalTankers;
+	public float flipperSpawnDelay;
+	public float tankerSpawnDelay;
 	public float roundTotalTime;
 	public int currentRound;
 	public int nextScene;
 	public int totalLives;
-	public Camera camera;
+	public Camera cam;
+
+	public float speedMulti = 5f;
 
 	public Canvas uiCanvas;
 	public Text notification;
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour {
 
 	private float _lastSpawn;
 	private int _flipperCount;
+	private int _tankerCount;
 	private float _startTime;
 	private GameObject _playerRef;
 	private MapManager _mapManager;
@@ -49,9 +55,10 @@ public class GameManager : MonoBehaviour {
 		flippers = new Flipper[totalFlippers];
 		_mapManager = GameObject.Find ("MapManager").GetComponent<MapManager> ();
 		_playerRef = GameObject.Find ("Player");
-		_audioSource = camera.GetComponent<AudioSource> ();
+		_audioSource = cam.GetComponent<AudioSource> ();
 		StartCoroutine (GameLoop ());
 		_flipperCount = 0;
+		_tankerCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -81,7 +88,7 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundStarting() {
 		SpawnPlayerShip ();
-		StartCoroutine (SpawnEnemyShips());
+		SpawnEnemyShips();
 
 		yield return new WaitForSeconds(3);
 		_startTime = Time.fixedTime;
@@ -126,36 +133,56 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	private IEnumerator SpawnEnemyShips ()
+	private void SpawnEnemyShips ()
 	{
-		_remainingEnemies = totalFlippers; // Add new enemies to this
-		for (int i = 0; i < totalFlippers; i++)
+		_remainingEnemies = totalFlippers + totalTankers; // Add new enemies to this
+		StartCoroutine(SpawnFlippers ());
+		StartCoroutine(SpawnTankers ());
+	}
+
+	private IEnumerator SpawnFlippers ()
+	{
+		for (int i = 0; i < totalTankers; i++)
 		{
 			_flipperCount++;
 			SpawnFlipper ();
-			yield return new WaitForSeconds (spawnDelay);
+			yield return new WaitForSeconds (flipperSpawnDelay);
 		}
 	}
+
+	private IEnumerator SpawnTankers ()
+	{
+		for (int i = 0; i < totalTankers; i++)
+		{
+			_tankerCount++;
+			SpawnTanker();
+			yield return new WaitForSeconds (tankerSpawnDelay);
+		}
+	}
+
 	//Random spawn point
 	public int RandomVal()
 	{
 		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
 	}
 	//Spawns new flipper enemy on field, associated with map line
+
 	public void SpawnFlipper()
 	{
-		int _rand1;
-		bool _straightMovement1;
-		MapLine thisMapLine;
-		Vector3 _vertex1, _vertex2, _lineCenter;
-		float _mapDepth;
-		_straightMovement1 = (currentRound == 1);
-		_rand1 = RandomVal ();
-		thisMapLine = _mapManager.mapLines [_rand1];
-		_mapDepth = _mapManager.depth;
-		GameObject newFlipper = Instantiate (flipperPrefab, thisMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-		newFlipper.GetComponent<Flipper>().SetMapLine (thisMapLine);
-		newFlipper.GetComponent<Flipper>().movementForce = currentRound * 20;
+		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		float _mapDepth = _mapManager.depth;
+		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
+		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
+		newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
+	}
+
+	public void SpawnTanker()
+	{
+		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		float _mapDepth = _mapManager.depth;
+		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
+		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
+		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
 
 	bool EnemiesAtEdge() {
@@ -187,6 +214,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void FlipperDestroyed() {
-		_remainingEnemies--;
+		EnemyDestroyed ("Flipper");
 	}
+	public void TankerDestroyed() {
+		EnemyDestroyed ("Tanker");
+	}
+
+	void EnemyDestroyed(string type) {
+		if (type == "Flipper") {
+			_remainingEnemies--;
+		} else if (type == "Tanker") {
+			// Tanker spawns two Flippers, which means a net total of +1 enemies
+			_remainingEnemies++; 
+		}
+	}
+
 }
