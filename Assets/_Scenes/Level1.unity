@@ -876,7 +876,7 @@ MonoBehaviour:
   - {x: -1, y: 0, z: 0}
   isLoop: 1
   startMapLineIndex: 2
-  depth: 40
+  depth: 20
 --- !u!4 &844447045
 Transform:
   m_ObjectHideFlags: 0
