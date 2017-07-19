@@ -76,8 +76,8 @@ public class Flipper : MonoBehaviour, IShipBase
 	{
 		if (rb.position.z <= 0) //In case the player ship is flying in after respawning?
 		{
-			Vector3 newPos;
-			MapLine newMapLine;
+			Vector3 _newPos;
+			MapLine _newMapLine, _nextMapLine;
 			//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
 			rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
 			rb.constraints = RigidbodyConstraints.FreezePositionZ;
@@ -107,12 +107,24 @@ public class Flipper : MonoBehaviour, IShipBase
 				}
 			}
 			//Move (_isCW);
-			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out newPos, out newMapLine);
-			rb.MovePosition (new Vector3(newPos.x, newPos.y, 0));
-			if (newMapLine != null)
+			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
+			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, 0));
+			if (_newMapLine != null)
 			{
-				thisMapLine = newMapLine;
+				thisMapLine = _newMapLine;
 			}
+			if (thisMapLine == GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine) {
+				_nextMapLine = thisMapLine;
+			}
+			else if (_isCW == 1) {
+				_nextMapLine = thisMapLine.leftLine;
+			} else {
+				_nextMapLine = thisMapLine.rightLine;
+			}
+			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+			//print (Quaternion.Euler(newDirVec));
+			rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
 		}
 		else if (_straightMovement)
 		{
