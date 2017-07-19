@@ -83,50 +83,42 @@ public class Flipper : MonoBehaviour, IShipBase
 			//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
 			rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
 			rb.constraints = RigidbodyConstraints.FreezePositionZ;
-			_currPlayerNum = GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine.GetLineNum ();
-			if (_isCW == 0)
-			{
-				int _beCW = _currPlayerNum - thisMapLine.GetLineNum ();
-				int _beCCW = _mapManager.mapLines.Length - _currPlayerNum + thisMapLine.GetLineNum ();
-				if (_beCW > _beCCW)
-				{
-					_isCW = 1;
-				}
-				else if (_beCW < _beCCW)
-				{
-					_isCW = -1;
-				}
-				else //Equal distance from player
-				{
-					if (Random.value > 0.5)
-					{
+			if (GameObject.Find ("Player") != null) {
+				_currPlayerNum = GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine.GetLineNum ();
+				if (_isCW == 0) {
+					int _beCW = _currPlayerNum - thisMapLine.GetLineNum ();
+					int _beCCW = _mapManager.mapLines.Length - _currPlayerNum + thisMapLine.GetLineNum ();
+					if (_beCW > _beCCW) {
 						_isCW = 1;
-					}
-					else
-					{
+					} else if (_beCW < _beCCW) {
 						_isCW = -1;
+					} else { //Equal distance from player
+						if (Random.value > 0.5) {
+							_isCW = 1;
+						} else {
+							_isCW = -1;
+						}
 					}
 				}
 			}
-			//Move (_isCW);
-			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
-			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, 0));
-			if (_newMapLine != null)
-			{
-				thisMapLine = _newMapLine;
-			}
-			if (thisMapLine == GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine) {
-				_nextMapLine = thisMapLine;
-			}
-			else if (_isCW == 1) {
-				_nextMapLine = thisMapLine.leftLine;
-			} else {
-				_nextMapLine = thisMapLine.rightLine;
-			}
-			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
-			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
-			//print (Quaternion.Euler(newDirVec));
-			rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+				//Move (_isCW);
+				thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
+				rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
+				if (_newMapLine != null) {
+					thisMapLine = _newMapLine;
+				}
+				if (thisMapLine == GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine) {
+					_nextMapLine = thisMapLine;
+				} else if (_isCW == 1) {
+					_nextMapLine = thisMapLine.leftLine;
+				} else {
+					_nextMapLine = thisMapLine.rightLine;
+				}
+				Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+				Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+				//print (Quaternion.Euler(newDirVec));
+				rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
+			
 		}
 		else if (_straightMovement)
 		{
@@ -219,7 +211,9 @@ public class Flipper : MonoBehaviour, IShipBase
 		AudioSource explosionSource = newExplosion.GetComponent<AudioSource> ();
 		explosionSource.clip = soundDeath;
 		explosionSource.Play ();
-		gameObject.SetActive (false); // Disable enemy
+		_gameManager.FlipperDestroyed ();
+		Destroy (gameObject);
+		//gameObject.SetActive (false); // Disable enemy
 	}
 
 	//void OnCollisionEnter(Collision collider) {

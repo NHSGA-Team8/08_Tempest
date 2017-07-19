@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
 	private MapManager _mapManager;
 	private AudioSource _audioSource;
 
+	private int _remainingEnemies;
+
 	// Use this for initialization
 	void Start () {
 		curLives = totalLives;
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundPlaying() {
 
-		while (curLives >= 0 && !(EnemiesAtEdge() == true && _flipperCount >= totalFlippers))
+		while (curLives >= 0 && !(EnemiesAtEdge() == true || _remainingEnemies <= 0))
 			yield return null;
 	}
 
@@ -126,10 +128,11 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator SpawnEnemyShips ()
 	{
+		_remainingEnemies = totalFlippers; // Add new enemies to this
 		for (int i = 0; i < totalFlippers; i++)
 		{
 			_flipperCount++;
-			CreateNew ();
+			SpawnFlipper ();
 			yield return new WaitForSeconds (spawnDelay);
 		}
 	}
@@ -139,23 +142,14 @@ public class GameManager : MonoBehaviour {
 		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
 	}
 	//Spawns new flipper enemy on field, associated with map line
-	public void CreateNew()
+	public void SpawnFlipper()
 	{
-		//print ("CreateNew");
-		//float _rand1;
 		int _rand1;
 		bool _straightMovement1;
 		MapLine thisMapLine;
 		Vector3 _vertex1, _vertex2, _lineCenter;
 		float _mapDepth;
-		if (currentRound == 1)
-		{
-			_straightMovement1 = true;
-		}
-		else
-		{
-			_straightMovement1 = false;
-		}
+		_straightMovement1 = (currentRound == 1);
 		_rand1 = RandomVal ();
 		thisMapLine = _mapManager.mapLines [_rand1];
 		_mapDepth = _mapManager.depth;
@@ -190,5 +184,9 @@ public class GameManager : MonoBehaviour {
 			flash.color = new Color (1f, 1f, 1f, ((float)i / 255f));
 			yield return new WaitForSeconds (duration / 255);
 		}
+	}
+
+	public void FlipperDestroyed() {
+		_remainingEnemies--;
 	}
 }
