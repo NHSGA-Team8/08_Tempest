@@ -17,6 +17,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	public float fireCooldown = 0.2f;
 	public MapLine curMapLine;
 	public GameObject explodePrefab;
+	public float moveCooldown = 0.0f;
 
 	public AudioClip soundFire;
 	public AudioClip soundDeath;
@@ -38,7 +39,9 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	private float _godTimer;
 	private AudioSource _audioSource;
 	private bool _zapperReady;
-	private MapLine targetMapLine;
+	private MapLine _targetMapLine;
+	private MapLine _nextMapLine;
+	private float _nextMove;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +52,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		_godTimer = Time.fixedTime + 3;
 		_audioSource = GetComponent<AudioSource> ();
 		_zapperReady = true;
+		_nextMove = Time.fixedTime + moveCooldown;
 	}
 
 	void OnEnable() {
@@ -73,25 +77,36 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 
 		} else {
 			Vector3 mousePos = Input.mousePosition;
-			targetMapLine = curMapLine;
+			_targetMapLine = curMapLine;
 			foreach (MapLine ml in _mapManager.mapLines) {
 				Vector3 MLPos = camera.WorldToScreenPoint (ml.GetMidPoint ());
-				Vector3 curMLPos = camera.WorldToScreenPoint (targetMapLine.GetMidPoint ());
+				Vector3 curMLPos = camera.WorldToScreenPoint (_targetMapLine.GetMidPoint ());
 				if (Vector3.Distance (mousePos, MLPos) < Vector3.Distance (mousePos, curMLPos)) {
-					targetMapLine = ml;
+					_targetMapLine = ml;
 				}
 			}
-			curMapLine = targetMapLine;
+			int rightDist = curMapLine.getShortestDist (curMapLine.leftLine, _targetMapLine);
+			int leftDist = curMapLine.getShortestDist (curMapLine.rightLine, _targetMapLine);
+			if (leftDist < rightDist) {
+				_nextMapLine = curMapLine.leftLine;
+			} else if (leftDist >= rightDist && leftDist > 0) {
+				_nextMapLine = curMapLine.rightLine;
+			} else {
+				_nextMapLine = curMapLine;
+			}
+			//curMapLine = _targetMapLine;
 		}
+		//if (_nextMove <= Time.fixedTime) {
+			Move ();
+		//	_nextMove = Time.fixedTime + moveCooldown;
+		//}
 
-		Move ();
-
-		if (Input.GetKey (KeyCode.Space) && _lastFire + fireCooldown < Time.fixedTime && _curBullets < maxBullets) {
+		if ((Input.GetMouseButton(0) || Input.GetKey (KeyCode.Space)) && _lastFire + fireCooldown < Time.fixedTime && _curBullets < maxBullets) {
 			Fire ();
 			_lastFire = Time.fixedTime;
 		}
 
-		if (Input.GetKey (KeyCode.LeftControl) && _zapperReady == true) {
+		if ((Input.GetKey (KeyCode.LeftControl) || Input.GetMouseButton(1)) && _zapperReady == true) {
 			Zapper ();
 			_zapperReady = false;
 		}
@@ -116,18 +131,20 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 				curMapLine = newMapLine;
 			}
 		} else {
-			//Debug.DrawLine (targetMapLine.startPos, targetMapLine.endPos);
-			Vector3 newPos = curMapLine.GetMidPoint();
+
+			Vector3 newPos = _nextMapLine.GetMidPoint();
 			if (movingForward == true) {
 				newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
 			}
 
 			_rigidbody.MovePosition (newPos);
 
-			Vector3 curDirVec = curMapLine.GetDirectionVector ();
+			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 			//print (Quaternion.Euler(newDirVec));
 			_rigidbody.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+
+			curMapLine = _nextMapLine;
 		}
 	}
 
