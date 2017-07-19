@@ -138,8 +138,15 @@ public class Flipper : MonoBehaviour, IShipBase
 		}
 		else
 		{
+			Vector3 _newPos;
+			MapLine _newMapLine, _nextMapLine;
 			//Move forward by one or a few pixels
+			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * 1 * movementForce * 0.2f, out _newPos, out _newMapLine);
+			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, transform.position.z + transform.forward * (Time.deltaTime * movementForce * -1)));
 			//While moving to next section of map
+			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, transform.position.z);
+			rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
 		}
 	}
 
