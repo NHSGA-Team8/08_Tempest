@@ -54,7 +54,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		_audioSource = GetComponent<AudioSource> ();
 		_mapManager = GameObject.Find("MapManager").GetComponent<MapManager> ();
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
-
+		levelNum = _gameManager.currentRound;
 		if (levelNum == 1)
 		{
 			_straightMovement = true;
@@ -66,6 +66,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		Vector3 curDirVec = thisMapLine.GetDirectionVector ();
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 		rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+		StartCoroutine (FirePeriodically ());
 		/*
 		if (Random.value > 0.5)
 			_isCW = 1;
@@ -195,7 +196,8 @@ public class Flipper : MonoBehaviour, IShipBase
 	public void Fire()
 	{
 		GameObject newFlipperShell = Instantiate (flipperShell);
-		newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
+		//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
+		newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
 	}
 
 	private IEnumerator FirePeriodically()

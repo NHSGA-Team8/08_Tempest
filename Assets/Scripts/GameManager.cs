@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,7 +17,6 @@ public class GameManager : MonoBehaviour {
 	public int totalTankers;
 	public float flipperSpawnDelay;
 	public float tankerSpawnDelay;
-	public float roundTotalTime;
 	public int currentRound;
 	public int nextScene;
 	public int totalLives;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject flipperShell; //Enemy Projectile
 
 	public enum GAMESTATE {PREGAME, STARTING, PLAYING, ENDING};
-	public GAMESTATE curGamestate = GAMESTATE.PREGAME;
+	[HideInInspector] public GAMESTATE curGamestate = GAMESTATE.PREGAME;
 
 	[HideInInspector] public Flipper[] flippers;
 	[HideInInspector] public int curLives;
@@ -166,7 +166,6 @@ public class GameManager : MonoBehaviour {
 		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
 	}
 	//Spawns new flipper enemy on field, associated with map line
-
 	public void SpawnFlipper()
 	{
 		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];

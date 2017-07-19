@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour {
+public class TankerBullet : MonoBehaviour {
 
 	public GameObject explodeParticle;
 	private GameObject ship;
@@ -18,15 +18,14 @@ public class PlayerBullet : MonoBehaviour {
 	void OnDestroy() {
 		GameObject newExplosion = Instantiate (explodeParticle, gameObject.transform.position, gameObject.transform.rotation);
 		Destroy (newExplosion, 1f);
-		ship.GetComponent<PlayerShip>().BulletDestroyed ();
+		//ship.GetComponent<PlayerShip>().BulletDestroyed ();
 	}
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.GetComponent<IShipBase> () != null)
 			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
-		if (col.gameObject.GetComponent<TankerBullet> () != null)
+		if (col.gameObject.GetComponent<PlayerBullet> () != null)
 			Destroy (col.gameObject);
 		Destroy (gameObject);
 	}
-
 }
