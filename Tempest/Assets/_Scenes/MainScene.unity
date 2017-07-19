@@ -574,7 +574,7 @@ Prefab:
     - target: {fileID: 54240098782213412, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
       propertyPath: m_Constraints
-      value: 112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 65448499098038040, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
@@ -611,6 +611,16 @@ Prefab:
       propertyPath: camera
       value: 
       objectReference: {fileID: 388281289}
+    - target: {fileID: 114275928239303732, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
+        type: 2}
+      propertyPath: legacyMovement
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114275928239303732, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
+        type: 2}
+      propertyPath: fireCooldown
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
   m_IsPrefabParent: 0
