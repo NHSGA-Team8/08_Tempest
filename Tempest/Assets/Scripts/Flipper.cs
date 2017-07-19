@@ -35,6 +35,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private int _isCW = 0; //isClockWise: 1 = CW
 	private int _currPlayerNum;
 	private AudioSource _audioSource;
+	private Quaternion _desiredRotation;
 
 	Rigidbody rb;
 	//Audio
@@ -127,10 +128,11 @@ public class Flipper : MonoBehaviour, IShipBase
 			//While moving to next section of map
 		}
 	}
-	/*
-	void Move(int dir){
-			Vector3 newPos;
-			MapLine newMapLine;
+
+	void Move(int _dir){
+		/*
+		Vector3 newPos;
+		MapLine newMapLine;
 			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * dir * movementForce, out newPos, out newMapLine);
 			//rb.MovePosition (newPos);
 			rb.MovePosition (new Vector3(newPos.x, newPos.y, 0));
@@ -138,8 +140,43 @@ public class Flipper : MonoBehaviour, IShipBase
 			{
 				thisMapLine = newMapLine;
 			}
+			*/
+		bool legacyMovement = true;
+		/*
+		if (legacyMovement == true) {
+			Vector3 newPos;
+			MapLine newMapLine;
+			Quaternion newQuat;
+
+			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _dir * movementForce, out newPos, out newMapLine);
+
+			if (movingForward == true) {
+				newPos += new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
+			}
+
+			_rigidbody.MovePosition (newPos);
+
+			if (newMapLine != null) {
+				curMapLine = newMapLine;
+			}
+		} else {
+
+			Vector3 newPos = _nextMapLine.GetMidPoint();
+			if (movingForward == true) {
+				newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
+			}
+
+			_rigidbody.MovePosition (newPos);
+
+			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+			//print (Quaternion.Euler(newDirVec));
+			_rigidbody.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+
+			curMapLine = _nextMapLine;
+		}
+		*/
 	}
-	*/
 	// Called to fire a projectile.
 	public void Fire()
 	{
