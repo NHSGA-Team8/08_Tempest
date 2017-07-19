@@ -7,7 +7,7 @@ public class PlayerBullet : MonoBehaviour {
 	private GameObject ship;
 
 	void Start() {
-		Destroy (gameObject, 2f);
+		Destroy (gameObject, 1.5f);
 	}
 
 	public void SetShip(GameObject newShip) {

@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour {
 	public bool isLoop;
 
 	// MapLines are generated at Start(), and they represent a line in the map.
-	public MapLine[] mapLines;
+	[HideInInspector] public MapLine[] mapLines;
 
 	public int startMapLineIndex;
 
