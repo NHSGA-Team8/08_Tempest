@@ -62,7 +62,9 @@ public class Flipper : MonoBehaviour, IShipBase
 		{
 			_straightMovement = false;
 		}
-
+		Vector3 curDirVec = thisMapLine.GetDirectionVector ();
+		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+		rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
 		/*
 		if (Random.value > 0.5)
 			_isCW = 1;
