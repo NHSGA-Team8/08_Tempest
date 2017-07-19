@@ -1084,7 +1084,6 @@ MonoBehaviour:
     type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
-<<<<<<< HEAD
   totalFlippers: 20
   totalTankers: 5
   flipperSpawnDelay: 1
@@ -1092,7 +1091,6 @@ MonoBehaviour:
 =======
   totalFlippers: 15
   spawnDelay: 0.75
->>>>>>> dfa3867b95accc70564d14f2250594a0e5cf75dc
   roundTotalTime: 0
   currentRound: 1
   nextScene: 2
