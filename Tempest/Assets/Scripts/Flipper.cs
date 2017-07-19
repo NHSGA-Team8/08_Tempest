@@ -139,7 +139,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		else //Switching lanes
 		{
 			Vector3 _newPos;
-			MapLine _newMapLine, _nextMapLine;
+			MapLine _newMapLine, _nextMapLine = thisMapLine.leftLine;
 			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 			//Move forward by one or a few pixels
 			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * 1 * movementForce * 0.2f, out _newPos, out _newMapLine);
