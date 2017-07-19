@@ -67,6 +67,9 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 		highlighter.transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,-1f), newDirVec);
 		highlighter.transform.position = curMapLine.GetMidPoint() + new Vector3(0f,0f,20f);
+		RectTransform rt = highlighter.GetComponent<RectTransform> ();
+		rt.sizeDelta = new Vector2 (1.1f * curMapLine.GetLength (), 40);
+
 	}
 
 	void FixedUpdate(){
