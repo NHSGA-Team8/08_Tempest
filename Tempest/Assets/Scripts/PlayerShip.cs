@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 /*
  * Ethan Zhu and Rachael H.
  */
@@ -22,6 +22,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	public AudioClip soundFire;
 	public AudioClip soundDeath;
 	public AudioClip soundZapper;
+
+	public Canvas highlighter;
 
 	public bool legacyMovement = false;
 
@@ -61,7 +63,10 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 
 	// Update is called once per frame
 	void Update () {
-
+		Vector3 curDirVec = curMapLine.GetDirectionVector ();
+		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+		highlighter.transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,-1f), newDirVec);
+		highlighter.transform.position = curMapLine.GetMidPoint() + new Vector3(0f,0f,20f);
 	}
 
 	void FixedUpdate(){
@@ -172,7 +177,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		// GodTimer is when the ship is invincible
 		if (Time.fixedTime < _godTimer)
 			return;
-
+			
 		if (gameObject.activeSelf == false)
 			return;
 		// Since the player is dead on touch, just destroy it

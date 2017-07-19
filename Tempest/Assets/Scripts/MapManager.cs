@@ -49,21 +49,5 @@ public class MapManager : MonoBehaviour {
 			Debug.DrawLine (mapVertices [i], mapVertices [i + 1]);
 		}
 	}
-
-	// return the normal vector of the line and the pos
-	public Quaternion GetVerticeNormal(Vector3 pos){
-
-		Quaternion finalQuat = Quaternion.Euler(0f,0f,0f);
-
-		// TODO Determine which edge the pos is on
-
-		// TODO If not on edge, return null
-
-		// TODO Calculate the normal on the line
-
-		// Return the Quaternion
-		return finalQuat;
-
-	}
 		
 }
