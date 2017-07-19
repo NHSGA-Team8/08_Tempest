@@ -34,7 +34,6 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	private GameManager _gameManager;
 	// The value of input, updated each frame.
 	private float _inputValue;
-	private Quaternion _desiredRotation;
 	private int _curBullets;
 	private float _lastFire;
 	private Rigidbody _rigidbody;
@@ -43,7 +42,6 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	private bool _zapperReady;
 	private MapLine _targetMapLine;
 	private MapLine _nextMapLine;
-	private float _nextMove;
 
 	// Use this for initialization
 	void Start () {
@@ -54,7 +52,6 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		_godTimer = Time.fixedTime + 3;
 		_audioSource = GetComponent<AudioSource> ();
 		_zapperReady = true;
-		_nextMove = Time.fixedTime + moveCooldown;
 	}
 
 	void OnEnable() {
@@ -102,12 +99,9 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 			} else {
 				_nextMapLine = curMapLine;
 			}
-			//curMapLine = _targetMapLine;
 		}
-		//if (_nextMove <= Time.fixedTime) {
-			Move ();
-		//	_nextMove = Time.fixedTime + moveCooldown;
-		//}
+
+		Move ();
 
 		if ((Input.GetMouseButton(0) || Input.GetKey (KeyCode.Space)) && _lastFire + fireCooldown < Time.fixedTime && _curBullets < maxBullets) {
 			Fire ();

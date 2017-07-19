@@ -18,9 +18,9 @@ public class PlayerBullet : MonoBehaviour {
 		ship.GetComponent<PlayerShip>().BulletDestroyed ();
 	}
 
-	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.GetComponent<Flipper> ())
-			collision.gameObject.GetComponent<Flipper> ().TakeDamage (1);
+	void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<IShipBase> () != null)
+			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
 		Destroy (gameObject);
 	}
 
