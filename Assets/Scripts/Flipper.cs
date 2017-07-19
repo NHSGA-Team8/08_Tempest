@@ -53,7 +53,12 @@ public class Flipper : MonoBehaviour, IShipBase
 		//print(Console.WriteLine(MapManager.mapVertices[1]));
 		_audioSource = GetComponent<AudioSource> ();
 		_mapManager = GameObject.Find("MapManager").GetComponent<MapManager> ();
+<<<<<<< HEAD
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
+=======
+		_gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+
+>>>>>>> dfa3867b95accc70564d14f2250594a0e5cf75dc
 		if (levelNum == 1)
 		{
 			_straightMovement = true;
@@ -74,7 +79,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 		if (rb.position.z <= 0) //In case the player ship is flying in after respawning?
 		{
@@ -100,7 +105,6 @@ public class Flipper : MonoBehaviour, IShipBase
 						}
 					}
 				}
-			}
 				//Move (_isCW);
 				thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
 				rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
@@ -118,7 +122,7 @@ public class Flipper : MonoBehaviour, IShipBase
 				Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 				//print (Quaternion.Euler(newDirVec));
 				rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
-			
+			}
 		}
 		else if (_straightMovement)
 		{
@@ -196,6 +200,12 @@ public class Flipper : MonoBehaviour, IShipBase
 	{
 		GameObject newFlipperShell = Instantiate (flipperShell);
 		newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
+	}
+
+	private IEnumerator FirePeriodically()
+	{
+		yield return new WaitForSeconds (reloadTime);
+		Fire ();
 	}
 
 	// Called when a projectile damages the ship. Should call OnDeath() if it kills;

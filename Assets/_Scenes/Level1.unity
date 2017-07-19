@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0848098, g: 0.12897739, b: 0.1848979, a: 1}
+  m_IndirectSpecularColor: {r: 0.08491983, g: 0.12897712, b: 0.18492413, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1084,10 +1084,15 @@ MonoBehaviour:
     type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
+<<<<<<< HEAD
   totalFlippers: 20
   totalTankers: 5
   flipperSpawnDelay: 1
   tankerSpawnDelay: 2
+=======
+  totalFlippers: 15
+  spawnDelay: 0.75
+>>>>>>> dfa3867b95accc70564d14f2250594a0e5cf75dc
   roundTotalTime: 0
   currentRound: 1
   nextScene: 2
