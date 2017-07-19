@@ -166,7 +166,6 @@ public class GameManager : MonoBehaviour {
 		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
 	}
 	//Spawns new flipper enemy on field, associated with map line
-
 	public void SpawnFlipper()
 	{
 		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
