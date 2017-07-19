@@ -836,29 +836,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapVertices:
-  - {x: -2, y: -1.2, z: 0}
-  - {x: -1.5, y: -1.2, z: 0}
-  - {x: -1.2, y: -1.2, z: 0}
-  - {x: -0.8, y: -0.75, z: 0}
-  - {x: -0.4, y: -0.4, z: 0}
-  - {x: 0, y: -0.4, z: 0}
-  - {x: 0.4, y: -0.4, z: 0}
-  - {x: 0.8, y: -0.75, z: 0}
-  - {x: 1.2, y: -1.2, z: 0}
-  - {x: 1.5, y: -1.2, z: 0}
-  - {x: 2, y: -1.2, z: 0}
-  - {x: 1.6, y: -0.75, z: 0}
-  - {x: 1.3, y: -0.2, z: 0}
-  - {x: 0.9, y: 0.35, z: 0}
-  - {x: 0.6, y: 0.8, z: 0}
-  - {x: 0, y: 0.8, z: 0}
-  - {x: -0.6, y: 0.8, z: 0}
-  - {x: -0.9, y: 0.35, z: 0}
-  - {x: -1.3, y: -0.2, z: 0}
-  - {x: -1.6, y: -0.75, z: 0}
-  - {x: -2, y: -1.2, z: 0}
+  - {x: -1.662, y: -1, z: 0}
+  - {x: -0.9, y: -1, z: 0}
+  - {x: 0, y: -1, z: 0}
+  - {x: 0.885, y: -1, z: 0}
+  - {x: 1.784, y: -1, z: 0}
+  - {x: 1.479, y: -0.547, z: 0}
+  - {x: 1.18, y: -0.016, z: 0}
+  - {x: 0.892, y: 0.583, z: 0}
+  - {x: 0.593, y: 1.041, z: 0}
+  - {x: 0, y: 1.041, z: 0}
+  - {x: -0.593, y: 1.041, z: 0}
+  - {x: -0.892, y: 0.583, z: 0}
+  - {x: -1.18, y: -0.016, z: 0}
+  - {x: -1.479, y: -0.547, z: 0}
+  - {x: -1.662, y: -1, z: 0}
   isLoop: 1
-  startMapLineIndex: 2
+  startMapLineIndex: 7
   depth: 50
 --- !u!4 &844447045
 Transform:
@@ -1065,6 +1059,7 @@ MonoBehaviour:
   flash: {fileID: 152676656}
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
+  ac_portal: {fileID: 0}
   flipperShell: {fileID: 1638749284954108, guid: 95d8750e340b04e459a19c653fd8a887,
     type: 2}
   curGamestate: 0
@@ -1422,7 +1417,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1749203929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2, y: -1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.041, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
