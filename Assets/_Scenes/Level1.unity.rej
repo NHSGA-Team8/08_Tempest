@@ -1,5 +1,5 @@
 diff a/Assets/_Scenes/Level1.unity b/Assets/_Scenes/Level1.unity	(rejected hunks)
-@@ -957,7 +957,11 @@
+@@ -876,7 +876,11 @@
    - {x: -1, y: 0, z: 0}
    isLoop: 1
    startMapLineIndex: 2
