@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundPlaying() {
 
-		while (curLives >= 0 && EnemiesAtEdge() == false && _flipperCount <= totalFlippers)
+		while (curLives >= 0 && !(EnemiesAtEdge() == true && _flipperCount >= totalFlippers))
 			yield return null;
 	}
 
