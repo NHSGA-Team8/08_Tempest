@@ -84,8 +84,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 			Vector3 mousePos = Input.mousePosition;
 			_targetMapLine = curMapLine;
 			foreach (MapLine ml in _mapManager.mapLines) {
-				Vector3 MLPos = camera.WorldToScreenPoint (ml.GetMidPoint ());
-				Vector3 curMLPos = camera.WorldToScreenPoint (_targetMapLine.GetMidPoint ());
+				Vector3 MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, camera.transform.position.z - camera.depth));
+				Vector3 curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, camera.transform.position.z - camera.depth));
 				if (Vector3.Distance (mousePos, MLPos) < Vector3.Distance (mousePos, curMLPos)) {
 					_targetMapLine = ml;
 				}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08491983, g: 0.12897712, b: 0.18492413, a: 1}
+  m_IndirectSpecularColor: {r: 0.0848098, g: 0.12897739, b: 0.1848979, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ Prefab:
     - target: {fileID: 224354856658995860, guid: ba9810c3d73832e43891c32d88235d20,
         type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 224354856658995860, guid: ba9810c3d73832e43891c32d88235d20,
         type: 2}
@@ -876,7 +876,11 @@ MonoBehaviour:
   - {x: -1, y: 0, z: 0}
   isLoop: 1
   startMapLineIndex: 2
+<<<<<<< HEAD
   depth: 20
+=======
+  depth: 30
+>>>>>>> 2f9d3eb6dffd314aa76c4f4a78866cb71b4ead26
 --- !u!4 &844447045
 Transform:
   m_ObjectHideFlags: 0
@@ -890,7 +894,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &952020868
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1088,7 +1091,6 @@ MonoBehaviour:
   totalTankers: 5
   flipperSpawnDelay: 1
   tankerSpawnDelay: 2
-  roundTotalTime: 0
   currentRound: 1
   nextScene: 2
   totalLives: 3
