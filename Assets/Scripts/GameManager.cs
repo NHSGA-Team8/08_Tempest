@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour {
 
 	public enum GAMESTATE {PREGAME, STARTING, PLAYING, ENDING};
 	[HideInInspector] public GAMESTATE curGamestate = GAMESTATE.PREGAME;
-	[HideInInspector] public int curLives;
 
 	private float _lastSpawn;
 	private float _startTime;
@@ -118,7 +117,7 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator RoundEnding() {
 		//print ("RoundEnding");
 		SetEndMessage();
-		if (curLives >= 0) {
+		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
 			StartCoroutine(FlashScreen (4f, 1f));
@@ -146,7 +145,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public IEnumerator PlayerDied() {
-		curLives--;
+		GlobalVariables.lives--;
 		yield return new WaitForSeconds(2);
 		SpawnPlayerShip ();
 
