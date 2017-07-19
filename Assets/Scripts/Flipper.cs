@@ -53,12 +53,8 @@ public class Flipper : MonoBehaviour, IShipBase
 		//print(Console.WriteLine(MapManager.mapVertices[1]));
 		_audioSource = GetComponent<AudioSource> ();
 		_mapManager = GameObject.Find("MapManager").GetComponent<MapManager> ();
-<<<<<<< HEAD
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
-=======
-		_gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 
->>>>>>> dfa3867b95accc70564d14f2250594a0e5cf75dc
 		if (levelNum == 1)
 		{
 			_straightMovement = true;
