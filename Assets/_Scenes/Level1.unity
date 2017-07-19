@@ -1088,7 +1088,6 @@ MonoBehaviour:
   totalTankers: 5
   flipperSpawnDelay: 1
   tankerSpawnDelay: 2
-=======
   totalFlippers: 15
   spawnDelay: 0.75
   roundTotalTime: 0
