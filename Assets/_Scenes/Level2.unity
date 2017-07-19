@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08491983, g: 0.12897712, b: 0.18492413, a: 1}
+  m_IndirectSpecularColor: {r: 0.0848098, g: 0.12897739, b: 0.1848979, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ Prefab:
     - target: {fileID: 224354856658995860, guid: ba9810c3d73832e43891c32d88235d20,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 224354856658995860, guid: ba9810c3d73832e43891c32d88235d20,
         type: 2}
@@ -732,7 +732,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4155185308819382, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114275928239303732, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
@@ -1009,7 +1009,7 @@ Transform:
   - {fileID: 1849542948}
   - {fileID: 1725289339}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185784937
 GameObject:
@@ -1052,18 +1052,16 @@ MonoBehaviour:
   currentRound: 2
   nextScene: 0
   totalLives: 3
-  cam: {fileID: 0}
   speedMulti: 5
-  uiCanvas: {fileID: 1247648972}
-  notification: {fileID: 1474811620}
-  flash: {fileID: 152676656}
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
   ac_portal: {fileID: 0}
-  flipperShell: {fileID: 1638749284954108, guid: 95d8750e340b04e459a19c653fd8a887,
-    type: 2}
+  cam: {fileID: 0}
+  uiCanvas: {fileID: 1247648972}
+  notification: {fileID: 1474811620}
+  score: {fileID: 0}
+  flash: {fileID: 152676656}
   curGamestate: 0
-  flippers: []
   curLives: 0
 --- !u!4 &1185784939
 Transform:
@@ -1421,7 +1419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849542946
 GameObject:
