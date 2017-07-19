@@ -263,7 +263,7 @@ MonoBehaviour:
   shellSpeed: 300
   reloadTime: 0.2
   levelNum: 1
-  flipperShell: {fileID: 1010819511925262, guid: db0bb1fa1bb1b6344be213f7b4a27ea6,
+  flipperShell: {fileID: 1638749284954108, guid: 95d8750e340b04e459a19c653fd8a887,
     type: 2}
   player: {fileID: 1627220439160560, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
   flipperEnemy: {fileID: 1417876579777458}
