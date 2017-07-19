@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114012375288335232}
   m_Layer: 0
   m_Name: PlayerBullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea919b12e2413184d888c6f3aa0c75cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explodeParticle: {fileID: 1088980966188592, guid: 742974c6c6c0f4c458f70b4d91ee885a,
+    type: 2}
 --- !u!135 &135223485218079254
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -166,5 +168,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.12
   m_Center: {x: 0, y: 0, z: 0}
