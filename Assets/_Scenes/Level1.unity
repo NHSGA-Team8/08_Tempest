@@ -1082,8 +1082,8 @@ MonoBehaviour:
     type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
-  totalFlippers: 10
-  spawnDelay: 2
+  totalFlippers: 20
+  spawnDelay: 0.75
   roundTotalTime: 0
   currentRound: 1
   nextScene: 0
