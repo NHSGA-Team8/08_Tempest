@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;		
 	
 /*
- * Ethan Zhu
+ * Written by Ethan Zhu
  * Restored by Rachael H.
  */
 public class SceneChangeButton : MonoBehaviour {		
