@@ -39,7 +39,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private Quaternion _desiredRotation;
 
 	private bool reachedEnd = false;
-	private bool hasFinishedMoving;
+	private bool hasFinishedMoving = true;
 
 	Rigidbody rb;
 
@@ -70,7 +70,8 @@ public class Flipper : MonoBehaviour, IShipBase
 		}
 		Vector3 curDirVec = thisMapLine.GetDirectionVector ();
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
-		rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+		transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec)[;
+		//transform.Rotate(newDirVec);
 		StartCoroutine (FirePeriodically ());
 		/*
 		if (Random.value > 0.5)
@@ -109,18 +110,18 @@ public class Flipper : MonoBehaviour, IShipBase
 			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 			//Move forward by one or a few pixels
 			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * 1 * movementForce * 0.2f, out _newPos, out _newMapLine);
-			rb.MovePosition (new Vector3(_newPos.x, _newPos.y, _newPosZ.z));
+			transform.position = new Vector3(_newPos.x, _newPos.y, _newPosZ.z);
 			//While moving to next section of map
 			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, transform.position.z);
-			rb.MoveRotation (Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec));
+			transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec);
 		}
 	}
 
 	private IEnumerator RotateAroundEdge ()
 	{
 		hasFinishedMoving = false;
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (1.5f);
 		Vector3 _newPos;
 		MapLine _newMapLine, _nextMapLine;
 		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
@@ -170,7 +171,7 @@ public class Flipper : MonoBehaviour, IShipBase
 			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 			//print (Quaternion.Euler(newDirVec));
-			transform.rotation = Quaternion.Euler(newDirVec);
+			transform.rotation = Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec);
 			//rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
 			hasFinishedMoving = true;
 		}
