@@ -954,7 +954,7 @@ MonoBehaviour:
   totalFlippers: 100
   totalTankers: 50
   totalSpikers: 4
-  totalPowerUps: 0
+  totalPowerUps: 3
   flipperSpawnDelay: 0.75
   tankerSpawnDelay: 1.5
   powerUpSpawnDelay: 0
