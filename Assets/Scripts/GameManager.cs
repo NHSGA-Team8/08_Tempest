@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator RoundStarting() {
 		SpawnPlayerShip ();
 		SpawnEnemyShips ();
-        StartCoroutine(SpawnPowerUps());
+        //StartCoroutine(SpawnPowerUps());
 
 		yield return new WaitForSeconds(1);
 		_startTime = Time.fixedTime;
@@ -189,10 +189,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-    private IEnumerator SpawnPowerUps()
+    /*
+	private IEnumerator SpawnPowerUps()
     {
         
     }
+    */
 		
 	//Spawns new flipper enemy on field, associated with map line
 	public void SpawnFlipper()
