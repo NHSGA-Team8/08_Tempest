@@ -26,6 +26,8 @@ public class PlayerBullet : MonoBehaviour {
 			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
 		if (col.gameObject.GetComponent<TankerBullet> () != null)
 			Destroy (col.gameObject);
+		if (col.gameObject.GetComponent<Spikes> () != null)
+			col.gameObject.GetComponent<Spikes>().TakeDamage (1);
 		Destroy (gameObject);
 	}
 
