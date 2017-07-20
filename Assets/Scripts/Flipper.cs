@@ -125,6 +125,7 @@ public class Flipper : MonoBehaviour, IShipBase
 			}
 			*/
 			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
+			transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 			if (_finishedSwitch)
 			{
 				StartCoroutine (SwitchLanes (_newPosZ.z));
