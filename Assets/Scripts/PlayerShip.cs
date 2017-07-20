@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerShip : MonoBehaviour, IShipBase {
 
 	// The axis used to take input.
-	public Camera camera;
+	public Camera cam;
 	public string inputAxis = "Horizontal";
 	public float moveSpeed = 5f;
 	public Rigidbody bullet;
@@ -83,13 +83,14 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		} else {
 			Vector3 mousePos = Input.mousePosition;
 			_targetMapLine = curMapLine;
+			float dis = cam.GetComponent<CameraManager> ().distance;
 			foreach (MapLine ml in _mapManager.mapLines) {
-				Vector3 MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, 0)); //camera.transform.position.z - camera.depth
+				Vector3 MLPos = cam.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, 0)); //cam.transform.position.z - cam.depth
 				if (movingForward == true)
-					MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, camera.transform.position.z - camera.depth));
-				Vector3 curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, 0)); // 
+					MLPos = cam.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, cam.transform.position.z - dis));
+				Vector3 curMLPos = cam.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, 0)); // 
 				if (movingForward == true)
-					curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, camera.transform.position.z - camera.depth));
+					curMLPos = cam.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, cam.transform.position.z - dis));
 				float mlDist = Vector3.Distance (mousePos, MLPos); //- _mapManager.mapLineDistBonus [ml.GetLineNum ()];
 				float curDist = Vector3.Distance (mousePos, curMLPos); //- _mapManager.mapLineDistBonus [_targetMapLine.GetLineNum ()];
 				if (mlDist < curDist) {
