@@ -130,8 +130,9 @@ public class Flipper : MonoBehaviour, IShipBase
 			transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 			if (_finishedSwitch)
 			{
-				StartCoroutine (SwitchLanes (transform.position.z));
+				//StartCoroutine (SwitchLanes (transform.position.z));
 				//StartCoroutine (SwitchLanes (_newPosZ.z));
+				StartCoroutine (SwitchLanes ());
 			}
 		}
 	}
@@ -194,8 +195,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			hasFinishedMoving = true;
 		}
 	}
-	//private IEnumerator SwitchLanes ()
-	private IEnumerator SwitchLanes (float z)
+	private IEnumerator SwitchLanes ()
+	//private IEnumerator SwitchLanes (float z)
 	{
 		_finishedSwitch = false;
 		yield return new WaitForSeconds (switchTime);
