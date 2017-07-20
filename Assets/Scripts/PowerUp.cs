@@ -4,34 +4,60 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
-    public float movementForce;
-    public MapLine thisMapLine;
+    public GameObject explodePrefab;
+    public AudioClip soundDeath;
 
-    private bool _straightMovement; //True if moving in only one lane for level one
-    private Rigidbody rb;
+    [HideInInspector] public MapLine curMapLine;
+    [HideInInspector] public float moveSpeed = 1f;
 
-    // Use this for initialization
-    void Start () {
-        rb = GetComponent<Rigidbody>();
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        rb.MovePosition(transform.position + transform.forward * (Time.deltaTime * movementForce * -1));
+    private MapManager _mapManager;
+    private GameManager _gameManager;
+    private Rigidbody _rigidbody;
+    private AudioSource _audioSource;
+    private GameObject _playerRef;
 
-    }
-
-    public bool GetStraightMovement()
+    void Start()
     {
-        return _straightMovement;
-    }
-    public void SetStraightMovement(bool isStraight)
-    {
-        _straightMovement = isStraight;
+        _rigidbody = GetComponent<Rigidbody>();
+        _mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
-    public void SetMapLine(MapLine newML)
+    void FixedUpdate()
     {
-        thisMapLine = newML;
+        Move();
+
+        if (transform.position.z < 3)
+            OnDeath();
     }
+
+    void Move()
+    {
+        Vector3 newPos = curMapLine.GetMidPoint();
+        newPos = newPos + new Vector3(0f, 0f, transform.position.z - moveSpeed * Time.deltaTime);
+
+        _rigidbody.MovePosition(newPos);
+
+        Vector3 curDirVec = curMapLine.GetDirectionVector();
+        Vector3 newDirVec = new Vector3(-curDirVec.y, curDirVec.x, 0);
+        //print (Quaternion.Euler(newDirVec));
+        _rigidbody.MoveRotation(Quaternion.LookRotation(new Vector3(0f, 0f, 1f), newDirVec));
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        OnDeath();
+    }
+
+    public void OnDeath()
+    {
+        GameObject newExplosion = Instantiate(explodePrefab, gameObject.transform.position, gameObject.transform.rotation);
+        AudioSource explosionSource = newExplosion.GetComponent<AudioSource>();
+        explosionSource.clip = soundDeath;
+        explosionSource.Play();
+
+        Destroy(gameObject);
+    }
+
 }
