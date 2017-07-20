@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199712116215494376}
   - component: {fileID: 82624610124949480}
   m_Layer: 0
-  m_Name: FlipperExplode
+  m_Name: PowerUpExplode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
