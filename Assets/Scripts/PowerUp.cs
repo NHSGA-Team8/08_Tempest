@@ -69,7 +69,7 @@ public class PowerUp : MonoBehaviour {
         Destroy(gameObject);
 
 		// Shield
-		POWERUPS powerup = POWERUPS.Mine;//(POWERUPS)Random.Range(0, 1);
+		POWERUPS powerup = (POWERUPS)Random.Range(0, 1);
 		if (powerup == POWERUPS.Shield) {
 			_playerRef.SetGod (5);
 			GameObject newEffect = Instantiate (godPrefab, _playerRef.transform.position, _playerRef.transform.rotation);
