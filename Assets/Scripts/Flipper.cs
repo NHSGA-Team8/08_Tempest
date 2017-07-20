@@ -126,12 +126,14 @@ public class Flipper : MonoBehaviour, IShipBase
 				thisMapLine = _nextMapLine;
 			}
 			*/
-			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
-			transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
-			if (_finishedSwitch)
-			{
-				StartCoroutine (SwitchLanes (transform.position.z));
-				//StartCoroutine (SwitchLanes (_newPosZ.z));
+			if (!reachedEnd) {
+				Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
+				transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
+				if (_finishedSwitch) {
+					//StartCoroutine (SwitchLanes (transform.position.z));
+					//StartCoroutine (SwitchLanes (_newPosZ.z));
+					StartCoroutine (SwitchLanes ());
+				}
 			}
 		}
 	}
@@ -194,8 +196,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			hasFinishedMoving = true;
 		}
 	}
-	//private IEnumerator SwitchLanes ()
-	private IEnumerator SwitchLanes (float z)
+	private IEnumerator SwitchLanes ()
+	//private IEnumerator SwitchLanes (float z)
 	{
 		_finishedSwitch = false;
 		yield return new WaitForSeconds (switchTime);
@@ -265,7 +267,8 @@ public class Flipper : MonoBehaviour, IShipBase
 	public void Fire()
 	{
 		//if (GameObject.Find("PlayerShip") != null)
-			GameObject newFlipperShell = Instantiate (flipperShell, transform.position, rb.rotation);
+			//GameObject newFlipperShell = Instantiate (flipperShell, transform.position, rb.rotation);
+		GameObject newFlipperShell = Instantiate (flipperShell, transform.position, transform.rotation);
 			//Rigidbody newFlipperShell = Instantiate (flipperShell, transform.position, transform.rotation) as Rigidbody;
 			//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
 			//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
