@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
+	public GameObject godPrefab;
     public GameObject explodePrefab;
     public AudioClip soundDeath;
 
@@ -62,6 +63,9 @@ public class PowerUp : MonoBehaviour {
 
 		// Shield
 		_playerRef.SetGod(5);
+		GameObject newEffect = Instantiate(godPrefab, _playerRef.transform.position, _playerRef.transform.rotation);
+		newEffect.transform.SetParent (_playerRef.transform);
+		Destroy (godPrefab, 5);
     }
 
 }

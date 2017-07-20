@@ -247,8 +247,8 @@ public class GameManager : MonoBehaviour {
         MapLine newMapLine = _mapManager.mapLines[index];
         float _mapDepth = _mapManager.depth;
         GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-        powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
-        powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
+        //powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
+        //powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
     }
 
 	public void SpawnSpiker()
