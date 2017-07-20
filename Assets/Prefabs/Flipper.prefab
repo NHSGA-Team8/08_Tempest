@@ -300,6 +300,10 @@ MonoBehaviour:
   inputAxis: Horizontal
   explodePrefab: {fileID: 1151035608467288, guid: 8158ca404c4dbd44bada57971d442dad,
     type: 2}
+<<<<<<< HEAD
   switchTime: 0
+=======
+  switchTime: 0.5
+>>>>>>> 074d6a2894e4897f6109205bd50cc844d551d8d0
   soundFire: {fileID: 8300000, guid: b0818e9b5e90c7843af4548d0d3146a3, type: 3}
   soundDeath: {fileID: 8300000, guid: 9d252576e3b22754299f6f2d52edba74, type: 3}
