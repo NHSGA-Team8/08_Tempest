@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour {
 	{
 		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
 		float _mapDepth = _mapManager.depth;
-		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
+		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), tankerPrefab.transform.rotation);
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
