@@ -174,7 +174,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 		_audioSource.Play ();
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		foreach (GameObject enemy in enemies) {
-			enemy.GetComponent<Flipper> ().TakeDamage (10);
+			enemy.GetComponent<IShipBase> ().TakeDamage (10);
 		}
 	}
 

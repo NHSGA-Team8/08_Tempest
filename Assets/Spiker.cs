@@ -6,7 +6,7 @@ public class Spiker : MonoBehaviour, IShipBase {
 
 	public float maxZ = 23f;
 	public float minZ = 3f;
-	public float moveSpeed = 1f;
+	public float moveSpeed = 0.1f;
 
 	public GameObject explodePrefab;
 	public GameObject spikePrefab;
@@ -24,12 +24,45 @@ public class Spiker : MonoBehaviour, IShipBase {
 
 	// Use this for initialization
 	void Start () {
+		_rigidbody = GetComponent<Rigidbody> ();
+		_mapManager = GameObject.Find ("MapManager").GetComponent<MapManager> ();
+		_gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		_audioSource = GetComponent<AudioSource> ();
 		CreateSpike ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+		
+	void FixedUpdate () {
+		Move ();
+		float len = _mapManager.depth - transform.position.z;
+		//print (len);
+		spike.SetLength (len);
+		//spike.SetNewPos (transform.position);
+	}
+
+	void Move() {
+		Vector3 newPos = transform.position;
+		if (forward == true) {
+			newPos = newPos - new Vector3 (0f, 0f, moveSpeed * Time.deltaTime);
+		} else {
+			newPos = newPos + new Vector3 (0f, 0f, moveSpeed * Time.deltaTime);
+		}
+
+		//print (newPos.z - moveSpeed * Time.deltaTime * 1f);
+		_rigidbody.MovePosition (newPos);
+
+		float newZ = transform.position.z;
+
+		if (newZ <= minZ) {
+			forward = false;
+		} else if (newZ >= maxZ) {
+			forward = true;
+		}
 	}
 
 	// Called to fire a projectile.
@@ -46,7 +79,7 @@ public class Spiker : MonoBehaviour, IShipBase {
 	public void OnDeath() {
 
 		// TODO spawn two flippers
-		_gameManager.TankerDestroyed();
+		_gameManager.SpikerDestroyed();
 		
 
 		GameObject newExplosion = Instantiate (explodePrefab, gameObject.transform.position, gameObject.transform.rotation);
@@ -62,7 +95,8 @@ public class Spiker : MonoBehaviour, IShipBase {
 	}
 
 	void CreateSpike() {
-		spike = Instantiate (spikePrefab, transform.position, transform.rotation).GetComponent<Spikes>();
+		spike = Instantiate (spikePrefab, transform.position, spikePrefab.transform.rotation).GetComponent<Spikes>();
 		spike.spiker = this;
 	}
+		
 }

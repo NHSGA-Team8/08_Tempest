@@ -13,12 +13,14 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject flipperPrefab;
 	public GameObject tankerPrefab;
+	public GameObject spikerPrefab;
     public GameObject powerUpPrefab;
 	public GameObject spawnEffect;
 
 	[Header("Round Settings")]
 	public int totalFlippers;
 	public int totalTankers;
+	public int totalSpikers;
     public int totalPowerUps;
 	public float flipperSpawnDelay;
 	public float tankerSpawnDelay;
@@ -49,9 +51,12 @@ public class GameManager : MonoBehaviour {
 	private int _flipperCount;
 	private int _tankerCount;
 	private int _enemiesCount;
+	private int _spikerCount;
 	private int _totalEnemies;
 	private int _remainingEnemies;
-
+	private int _remainingFlipper;
+	private int _remainingTanker;
+	private int _remainingSpiker;
 	private GameObject _playerRef;
 	private MapManager _mapManager;
 	private AudioSource _audioSource;
@@ -66,8 +71,9 @@ public class GameManager : MonoBehaviour {
 
 		_flipperCount = 0;
 		_tankerCount = 0;
+		_spikerCount = 0;
 		_enemiesCount = 0;
-		_totalEnemies = totalFlippers + totalTankers;
+		_totalEnemies = totalFlippers + totalTankers + totalSpikers;
 		_remainingEnemies = _totalEnemies;
 
 		if (currentRound == 1) {
@@ -166,6 +172,7 @@ public class GameManager : MonoBehaviour {
 		
 		StartCoroutine(SpawnFlippers ());
 		StartCoroutine(SpawnTankers ());
+		SpawnSpikers ();
 	}
 
 	private IEnumerator SpawnFlippers ()
@@ -190,13 +197,29 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	// Spikers instantly appear at start of game, so we do not use Coroutines
+	private void SpawnSpikers ()
+	{
+		for (int i = 0; i < totalSpikers; i++)
+		{
+			_spikerCount++;
+			_enemiesCount++;
+			SpawnSpiker();
+
+		}
+	}
+
     private IEnumerator SpawnPowerUps()
     {
+<<<<<<< HEAD
         for (int i = 0; i < totalPowerUps; i++)
         {
             SpawnPowerUp();
             yield return new WaitForSeconds(powerUpSpawnDelay);
         }
+=======
+		yield return null;
+>>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
     }
 		
 	//Spawns new flipper enemy on field, associated with map line
@@ -220,6 +243,7 @@ public class GameManager : MonoBehaviour {
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
 
+<<<<<<< HEAD
     public void SpawnPowerUp()
     {
         int index = Random.Range(1, _mapManager.mapLines.Length - 1);
@@ -229,6 +253,16 @@ public class GameManager : MonoBehaviour {
         powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
         powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
     }
+=======
+	public void SpawnSpiker()
+	{
+		int index = Random.Range (1, _mapManager.mapLines.Length - 1);
+		MapLine newMapLine = _mapManager.mapLines [index];
+		float _mapDepth = _mapManager.depth;
+		GameObject newShip = Instantiate (spikerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), spikerPrefab.transform.rotation);
+		newShip.GetComponent<Spiker>().moveSpeed *= currentRound * speedMulti;
+	}
+>>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
 
 	bool EnemiesAtEdge() {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
@@ -266,7 +300,7 @@ public class GameManager : MonoBehaviour {
 		EnemyDestroyed ("Tanker");
 		GlobalVariables.score += 100;
 	}
-	public void SpikedDestroyed() {
+	public void SpikerDestroyed() {
 		EnemyDestroyed ("Spiker");
 		GlobalVariables.score += 50;
 	}
@@ -292,12 +326,16 @@ public class GameManager : MonoBehaviour {
 
 	public void DestroyAllEnemies() {
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			// Spikers persist
+			if (enemy.GetComponent<Spiker>() != null) continue;
 			Destroy (enemy); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
 		}
 	}
 
 	public void DestroyAllProjectiles() {
 		foreach (GameObject proj in GameObject.FindGameObjectsWithTag("Projectile")) {
+			// Spikes persist
+			if (proj.GetComponent<Spikes>() != null) continue;
 			Destroy (proj); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
 		}
 	}
