@@ -212,15 +212,22 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator SpawnPowerUps()
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 89ba175e58ee6b629f29cc0c0c550753eef03f41
         for (int i = 0; i < totalPowerUps; i++)
         {
             SpawnPowerUp();
             yield return new WaitForSeconds(powerUpSpawnDelay);
         }
+<<<<<<< HEAD
 
 		yield return null;
 
+=======
+		yield return null;
+>>>>>>> 89ba175e58ee6b629f29cc0c0c550753eef03f41
     }
 		
 	//Spawns new flipper enemy on field, associated with map line

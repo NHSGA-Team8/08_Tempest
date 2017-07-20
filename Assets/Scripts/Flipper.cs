@@ -70,7 +70,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		}
 		Vector3 curDirVec = thisMapLine.GetDirectionVector ();
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
-		transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec)[;
+		transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec);
 		//transform.Rotate(newDirVec);
 		StartCoroutine (FirePeriodically ());
 		/*

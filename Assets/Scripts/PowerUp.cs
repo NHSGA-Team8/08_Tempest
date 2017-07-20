@@ -14,7 +14,7 @@ public class PowerUp : MonoBehaviour {
     private GameManager _gameManager;
     private Rigidbody _rigidbody;
     private AudioSource _audioSource;
-    private GameObject _playerRef;
+	private PlayerShip _playerRef;
 
     void Start()
     {
@@ -22,14 +22,15 @@ public class PowerUp : MonoBehaviour {
         _mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _audioSource = GetComponent<AudioSource>();
+		_playerRef = GameObject.Find("Player").GetComponent<PlayerShip>();
     }
 
     void FixedUpdate()
     {
         Move();
 
-        if (transform.position.z < 3)
-            OnDeath();
+		if (transform.position.z < -2)
+			Destroy (gameObject);
     }
 
     void Move()
@@ -58,6 +59,9 @@ public class PowerUp : MonoBehaviour {
         explosionSource.Play();
 
         Destroy(gameObject);
+
+		// Shield
+		_playerRef.SetGod(5);
     }
 
 }
