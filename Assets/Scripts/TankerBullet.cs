@@ -22,7 +22,7 @@ public class TankerBullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.GetComponent<IShipBase> () != null && col.gameObject != ship) {
+		if (col.gameObject.GetComponent<IShipBase> () != null && col.tag != "Enemy") {
 			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
 			Destroy (gameObject);
 		}

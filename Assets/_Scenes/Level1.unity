@@ -882,7 +882,7 @@ MonoBehaviour:
   totalFlippers: 20
   totalTankers: 5
   flipperSpawnDelay: 1
-  tankerSpawnDelay: 2
+  tankerSpawnDelay: 4
   currentRound: 1
   nextScene: 2
   totalLives: 3
@@ -896,7 +896,6 @@ MonoBehaviour:
   score: {fileID: 1724853240}
   flash: {fileID: 152676656}
   curGamestate: 0
-  curLives: 0
 --- !u!4 &1185784939
 Transform:
   m_ObjectHideFlags: 0
