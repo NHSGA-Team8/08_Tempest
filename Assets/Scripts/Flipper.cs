@@ -201,7 +201,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
 		//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
 		//newFlipperShell.velocity = 20f * transform.forward; //Directly changing velocity
-		newFlipperShell.GetComponent<Rigidbody> ().velocity = 20f * transform.forward; //Directly changing velocity
+		newFlipperShell.GetComponent<Rigidbody> ().velocity = -1 * 20f * transform.forward; //Directly changing velocity
 	}
 
 	private IEnumerator FirePeriodically()
