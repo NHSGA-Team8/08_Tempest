@@ -6,7 +6,7 @@ using System.Collections;
  */
 public class FlipperBullet : MonoBehaviour
 {
-
+	private GameObject ship;
 	// Use this for initialization
 	void Start ()
 	{
@@ -21,6 +21,10 @@ public class FlipperBullet : MonoBehaviour
 		}
 	}
 
+	public void SetShip(GameObject newShip) {
+		ship = newShip;
+	}
+
 	void OnDestroy ()
 	{
 	}
@@ -29,6 +33,7 @@ public class FlipperBullet : MonoBehaviour
 	{
 		if (other.gameObject.GetComponent<PlayerBullet> () != null) {
 			Destroy (gameObject);
+			Destroy (other.gameObject);
 		}
 		if (other.gameObject.GetComponent<PlayerShip> () != null) {
 			Destroy (gameObject);
