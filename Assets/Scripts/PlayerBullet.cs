@@ -22,7 +22,7 @@ public class PlayerBullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.GetComponent<IShipBase> () != null)
+		if (col.gameObject.GetComponent<IShipBase> () != null && col.tag == "Enemy")
 			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
 		if (col.gameObject.GetComponent<TankerBullet> () != null)
 			Destroy (col.gameObject);

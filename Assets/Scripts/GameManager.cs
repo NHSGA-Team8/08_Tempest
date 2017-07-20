@@ -88,6 +88,9 @@ public class GameManager : MonoBehaviour {
 		curGamestate = GAMESTATE.ENDING;
 		yield return StartCoroutine(RoundEnding());
 
+		DestroyAllEnemies ();
+		DestroyAllProjectiles ();
+
 		if (GlobalVariables.lives < 0)
 		{
 			// Back to menu if dead
@@ -120,7 +123,7 @@ public class GameManager : MonoBehaviour {
 		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine(FlashScreen (4f, 1f));
+			StartCoroutine(FlashScreen (4f, 0.5f));
 			yield return new WaitForSeconds(1);
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
 		
@@ -141,11 +144,14 @@ public class GameManager : MonoBehaviour {
 
 	public void OnPlayerDeath()
 	{
-		StartCoroutine (PlayerDied ());
+		DestroyAllEnemies ();
+		DestroyAllProjectiles ();
+		GlobalVariables.lives--;
+		if (GlobalVariables.lives >= 0)
+			StartCoroutine (PlayerDied ());
 	}
 
 	public IEnumerator PlayerDied() {
-		GlobalVariables.lives--;
 		yield return new WaitForSeconds(2);
 		SpawnPlayerShip ();
 
@@ -179,16 +185,11 @@ public class GameManager : MonoBehaviour {
 			yield return new WaitForSeconds (tankerSpawnDelay);
 		}
 	}
-
-	//Random spawn point
-	public int RandomVal()
-	{
-		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
-	}
+		
 	//Spawns new flipper enemy on field, associated with map line
 	public void SpawnFlipper()
 	{
-		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
@@ -197,7 +198,7 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnTanker()
 	{
-		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
@@ -252,5 +253,17 @@ public class GameManager : MonoBehaviour {
 
 	void UpdateScore() {
 		score.text = GlobalVariables.score.ToString();
+	}
+
+	public void DestroyAllEnemies() {
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
+		}
+	}
+
+	public void DestroyAllProjectiles() {
+		foreach (GameObject proj in GameObject.FindGameObjectsWithTag("Projectile")) {
+			Destroy (proj); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
+		}
 	}
 }
