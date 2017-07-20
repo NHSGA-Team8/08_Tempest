@@ -20,6 +20,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	public MapLine thisMapLine;
 	public string inputAxis = "Horizontal";
 	public GameObject explodePrefab;
+	public float switchTime;
 
 	//Private
 	private float _currentHealth;
@@ -103,7 +104,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			//rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
 			//rb.AddForce (-1 * movementForce * transform.forward * Time.deltaTime);
 
-			rb.MovePosition (transform.position + transform.forward * (Time.deltaTime * movementForce * -1));
+			//rb.MovePosition (transform.position + transform.forward * (Time.deltaTime * movementForce * -1));
+			transform.position = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 		}
 		else //Switching lanes
 		{
@@ -128,7 +130,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 			if (_finishedSwitch)
 			{
-				StartCoroutine (SwitchLanes (_newPosZ.z));
+				StartCoroutine (SwitchLanes (transform.position.z));
+				//StartCoroutine (SwitchLanes (_newPosZ.z));
 			}
 		}
 	}
@@ -136,7 +139,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private IEnumerator RotateAroundEdge ()
 	{
 		hasFinishedMoving = false;
-		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (switchTime);
 		Vector3 _newPos;
 		MapLine _newMapLine, _nextMapLine;
 		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
@@ -195,7 +198,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private IEnumerator SwitchLanes (float z)
 	{
 		_finishedSwitch = false;
-		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (switchTime);
 		Vector3 _newPos;
 		MapLine _newMapLine, _nextMapLine;
 		_nextMapLine = thisMapLine.leftLine;
@@ -203,7 +206,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			thisMapLine = _nextMapLine;
 		}
 		_newPos = _nextMapLine.GetMidPoint();
-		transform.position = new Vector3 (_newPos.x, _newPos.y, z);
+		//transform.position = new Vector3 (_newPos.x, _newPos.y, z);
+		transform.position = new Vector3 (_newPos.x, _newPos.y, transform.position.z);
 		Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 		transform.rotation = Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec);
