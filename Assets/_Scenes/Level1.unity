@@ -896,7 +896,6 @@ MonoBehaviour:
   score: {fileID: 1724853240}
   flash: {fileID: 152676656}
   curGamestate: 0
-  curLives: 0
 --- !u!4 &1185784939
 Transform:
   m_ObjectHideFlags: 0
@@ -1076,6 +1075,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224603172706046872, guid: f5d8e738a822bfc48843945a78693bb2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 267
+      objectReference: {fileID: 0}
+    - target: {fileID: 224603172706046872, guid: f5d8e738a822bfc48843945a78693bb2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -42
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5d8e738a822bfc48843945a78693bb2, type: 2}
