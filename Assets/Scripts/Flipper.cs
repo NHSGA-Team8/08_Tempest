@@ -40,6 +40,7 @@ public class Flipper : MonoBehaviour, IShipBase
 
 	private bool reachedEnd = false;
 	private bool hasFinishedMoving = true;
+	private bool _finishedSwitch = true;
 
 	Rigidbody rb;
 
@@ -68,6 +69,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		{
 			_straightMovement = false;
 		}
+		//_straightMovement = true;
 		Vector3 curDirVec = thisMapLine.GetDirectionVector ();
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 		transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec);
@@ -105,23 +107,36 @@ public class Flipper : MonoBehaviour, IShipBase
 		}
 		else //Switching lanes
 		{
+			/*
 			Vector3 _newPos;
-			MapLine _newMapLine, _nextMapLine = thisMapLine.leftLine;
+			MapLine _newMapLine;
+			MapLine _nextMapLine = thisMapLine.leftLine;
 			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 			//Move forward by one or a few pixels
 			thisMapLine.UpdateMovement (transform.position, Time.deltaTime * 1 * movementForce * 0.2f, out _newPos, out _newMapLine);
-			transform.position = new Vector3(_newPos.x, _newPos.y, _newPosZ.z);
+			//transform.position = new Vector3(_newPos.x, _newPos.y, _newPosZ.z);
+			transform.position = new Vector3(_nextMapLine.GetMidPoint().x, _nextMapLine.GetMidPoint ().y, _newPosZ.z);
 			//While moving to next section of map
 			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, transform.position.z);
 			transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec);
+			if (_nextMapLine != null) {
+				thisMapLine = _nextMapLine;
+			}
+			*/
+			Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
+			transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
+			if (_finishedSwitch)
+			{
+				StartCoroutine (SwitchLanes (_newPosZ.z));
+			}
 		}
 	}
 
 	private IEnumerator RotateAroundEdge ()
 	{
 		hasFinishedMoving = false;
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (1.0f);
 		Vector3 _newPos;
 		MapLine _newMapLine, _nextMapLine;
 		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
@@ -175,6 +190,24 @@ public class Flipper : MonoBehaviour, IShipBase
 			//rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
 			hasFinishedMoving = true;
 		}
+	}
+	//private IEnumerator SwitchLanes ()
+	private IEnumerator SwitchLanes (float z)
+	{
+		_finishedSwitch = false;
+		yield return new WaitForSeconds (1.0f);
+		Vector3 _newPos;
+		MapLine _newMapLine, _nextMapLine;
+		_nextMapLine = thisMapLine.leftLine;
+		if (_nextMapLine != null) {
+			thisMapLine = _nextMapLine;
+		}
+		_newPos = _nextMapLine.GetMidPoint();
+		transform.position = new Vector3 (_newPos.x, _newPos.y, z);
+		Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+		transform.rotation = Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec);
+		_finishedSwitch = true;
 	}
 	void Move(int _dir){
 		/*

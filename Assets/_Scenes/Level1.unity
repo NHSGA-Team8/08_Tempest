@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08491983, g: 0.12897712, b: 0.18492413, a: 1}
+  m_IndirectSpecularColor: {r: 0.0848098, g: 0.12897739, b: 0.1848979, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -858,6 +858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185784939}
   - component: {fileID: 1185784938}
+  - component: {fileID: 1185784940}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -882,20 +883,18 @@ MonoBehaviour:
     type: 2}
   tankerPrefab: {fileID: 1341859064001380, guid: 0d21c40a7fe8e664481212ae6f36f2ab,
     type: 2}
+  spikerPrefab: {fileID: 1794537389220604, guid: 465edb0b62eb5ee4e9715d03d997a5aa,
+    type: 2}
   powerUpPrefab: {fileID: 100000, guid: 0c65859cfbaf5fe4eab545959660eac3, type: 3}
-  spikerPrefab: {fileID: 1794537389220604, guid: 465edb0b62eb5ee4e9715d03d997a5aa, type: 2}
-  powerUpPrefab: {fileID: 0}
-  spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc, type: 2}
+  spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
+    type: 2}
   totalFlippers: 150
   totalTankers: 40
-  totalPowerUps: 0
-  flipperSpawnDelay: 1
-  tankerSpawnDelay: 2.5
-  powerUpSpawnDelay: 0
   totalSpikers: 0
   totalPowerUps: 0
   flipperSpawnDelay: 0.5
   tankerSpawnDelay: 2
+  powerUpSpawnDelay: 0
   currentRound: 1
   nextScene: 2
   totalLives: 3
@@ -903,6 +902,8 @@ MonoBehaviour:
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
   ac_portal: {fileID: 8300000, guid: 7e218b73611e11b479bce3e18bf929b2, type: 3}
+  ac_gameover: {fileID: 8300000, guid: baceb400ca8453347ad6923570c18936, type: 3}
+  musicAS: {fileID: 1363293112}
   cam: {fileID: 388281289}
   uiCanvas: {fileID: 1440798111}
   notification: {fileID: 1474811620}
@@ -922,6 +923,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1185784940
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1185784937}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2535e0eded50c414dacdea64bed796fc, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1363293110
 GameObject:
   m_ObjectHideFlags: 0
