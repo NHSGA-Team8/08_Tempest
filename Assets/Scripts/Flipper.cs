@@ -38,7 +38,10 @@ public class Flipper : MonoBehaviour, IShipBase
 	private AudioSource _audioSource;
 	private Quaternion _desiredRotation;
 
+	private bool reachedEnd = false;
+
 	Rigidbody rb;
+
 	//Audio
 	public AudioClip soundFire;
 	public AudioClip soundDeath;
@@ -79,13 +82,19 @@ public class Flipper : MonoBehaviour, IShipBase
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-		if (rb.position.z <= 0) //In case the player ship is flying in after respawning?
+		if (transform.position.z <= 0)
+		{
+			rb.constraints = RigidbodyConstraints.FreezePositionZ;
+			reachedEnd = true;
+		}
+
+		if (reachedEnd) //In case the player ship is flying in after respawning?
 		{
 			Vector3 _newPos;
 			MapLine _newMapLine, _nextMapLine;
 			//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
-			rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
-			rb.constraints = RigidbodyConstraints.FreezePositionZ;
+			//rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
+			//rb.constraints = RigidbodyConstraints.FreezePositionZ;
 			if (GameObject.Find ("Player") != null) {
 				_currPlayerNum = GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine.GetLineNum ();
 				if (_isCW == 0) {
@@ -114,15 +123,19 @@ public class Flipper : MonoBehaviour, IShipBase
 					_nextMapLine = thisMapLine;
 				} else if (_isCW == 1) {
 					_nextMapLine = thisMapLine.leftLine;
+					Debug.Log ("Left");
 				} else {
 					_nextMapLine = thisMapLine.rightLine;
+					Debug.Log ("Right");
 				}
 				_newPos = _nextMapLine.GetMidPoint();
-				rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
+				transform.position = new Vector3 (_newPos.x, _newPos.y, 0);
+				//rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
 				Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
 				Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 				//print (Quaternion.Euler(newDirVec));
-				rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
+				transform.rotation = Quaternion.Euler(newDirVec);
+				//rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
 			}
 		}
 		else if (_straightMovement)
@@ -199,21 +212,20 @@ public class Flipper : MonoBehaviour, IShipBase
 	// Called to fire a projectile.
 	public void Fire()
 	{
-		if (GameObject.Find("PlayerShip") != null)
-		{
+		//if (GameObject.Find("PlayerShip") != null)
 			GameObject newFlipperShell = Instantiate (flipperShell, transform.position, rb.rotation);
 			//Rigidbody newFlipperShell = Instantiate (flipperShell, transform.position, transform.rotation) as Rigidbody;
 			//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
 			//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
 			//newFlipperShell.velocity = 20f * transform.forward; //Directly changing velocity
 			newFlipperShell.GetComponent<Rigidbody> ().velocity = -1 * 10f * transform.forward; //Directly changing velocity
-		}
 	}
 
 	private IEnumerator FirePeriodically()
 	{
 		yield return new WaitForSeconds (reloadTime);
-		Fire ();
+		if (GameObject.Find("PlayerShip") != null)
+			Fire ();
 	}
 
 	// Called when a projectile damages the ship. Should call OnDeath() if it kills;
