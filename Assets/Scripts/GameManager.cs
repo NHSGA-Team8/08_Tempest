@@ -9,10 +9,13 @@ using UnityEngine.UI;
  */
 public class GameManager : MonoBehaviour {
 
+	[Header("Prefabs")]
 	public GameObject playerPrefab;
 	public GameObject flipperPrefab;
 	public GameObject tankerPrefab;
 	public GameObject spawnEffect;
+
+	[Header("Round Settings")]
 	public int totalFlippers;
 	public int totalTankers;
 	public float flipperSpawnDelay;
@@ -20,51 +23,60 @@ public class GameManager : MonoBehaviour {
 	public int currentRound;
 	public int nextScene;
 	public int totalLives;
-	public Camera cam;
-
 	public float speedMulti = 5f;
 
-	public Canvas uiCanvas;
-	public Text notification;
-	public Image flash;
-
+	[Header("AudioClips")]
 	public AudioClip ac_portalEnter;
 	public AudioClip ac_portalDuring;
 	public AudioClip ac_portal;
 
-	public GameObject flipperShell; //Enemy Projectile
+	[Header("Other References")]
+	public Camera cam;
+	public Canvas uiCanvas;
+	public Text notification;
+	public Text score;
+	public Image flash;
 
 	public enum GAMESTATE {PREGAME, STARTING, PLAYING, ENDING};
 	[HideInInspector] public GAMESTATE curGamestate = GAMESTATE.PREGAME;
 
-	[HideInInspector] public Flipper[] flippers;
-	[HideInInspector] public int curLives;
-
 	private float _lastSpawn;
+	private float _startTime;
+
 	private int _flipperCount;
 	private int _tankerCount;
-	private float _startTime;
+	private int _enemiesCount;
+	private int _totalEnemies;
+	private int _remainingEnemies;
+
 	private GameObject _playerRef;
 	private MapManager _mapManager;
 	private AudioSource _audioSource;
 
-	private int _remainingEnemies;
+
 
 	// Use this for initialization
 	void Start () {
-		curLives = totalLives;
-		flippers = new Flipper[totalFlippers];
 		_mapManager = GameObject.Find ("MapManager").GetComponent<MapManager> ();
 		_playerRef = GameObject.Find ("Player");
 		_audioSource = cam.GetComponent<AudioSource> ();
-		StartCoroutine (GameLoop ());
+
 		_flipperCount = 0;
 		_tankerCount = 0;
+		_enemiesCount = 0;
+		_totalEnemies = totalFlippers + totalTankers;
+		_remainingEnemies = _totalEnemies;
+
+		if (currentRound == 1) {
+			GlobalVariables.Reset ();
+		}
+
+		StartCoroutine (GameLoop ());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		UpdateScore ();
 	}
 
 	private IEnumerator GameLoop()
@@ -76,14 +88,18 @@ public class GameManager : MonoBehaviour {
 		curGamestate = GAMESTATE.ENDING;
 		yield return StartCoroutine(RoundEnding());
 
-		if (curLives < 0)
+		DestroyAllEnemies ();
+		DestroyAllProjectiles ();
+
+		if (GlobalVariables.lives < 0)
 		{
 			// Back to menu if dead
-			//SceneManager.LoadScene(0);
+			SceneManager.LoadScene(0);
 		}
 		else
 		{
 			// Next level if win
+			SceneManager.LoadScene(nextScene);
 		}
 	}
 
@@ -97,20 +113,22 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundPlaying() {
 
-		while (curLives >= 0 && !(EnemiesAtEdge() == true || _remainingEnemies <= 0))
+		while (!(GlobalVariables.lives < 0 || (EnemiesAtEdge() == true && _enemiesCount >= _totalEnemies) || _remainingEnemies <= 0)) // !(EnemiesAtEdge() == true && _remainingEnemies > 0 || _remainingEnemies > 0) 
 			yield return null;
 	}
 
 	private IEnumerator RoundEnding() {
 		//print ("RoundEnding");
 		SetEndMessage();
-		if (curLives >= 0) {
-			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
+		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine(FlashScreen (0.5f, 1f));
+			StartCoroutine(FlashScreen (4f, 0.5f));
+			yield return new WaitForSeconds(1);
+			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
+		
 		}
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(6);
 	}
 
 	void SpawnPlayerShip() {
@@ -126,11 +144,14 @@ public class GameManager : MonoBehaviour {
 
 	public void OnPlayerDeath()
 	{
-		StartCoroutine (PlayerDied ());
+		DestroyAllEnemies ();
+		DestroyAllProjectiles ();
+		GlobalVariables.lives--;
+		if (GlobalVariables.lives >= 0)
+			StartCoroutine (PlayerDied ());
 	}
 
 	public IEnumerator PlayerDied() {
-		curLives--;
 		yield return new WaitForSeconds(2);
 		SpawnPlayerShip ();
 
@@ -138,16 +159,17 @@ public class GameManager : MonoBehaviour {
 
 	private void SpawnEnemyShips ()
 	{
-		_remainingEnemies = totalFlippers + totalTankers; // Add new enemies to this
+		
 		StartCoroutine(SpawnFlippers ());
 		StartCoroutine(SpawnTankers ());
 	}
 
 	private IEnumerator SpawnFlippers ()
 	{
-		for (int i = 0; i < totalTankers; i++)
+		for (int i = 0; i < totalFlippers; i++)
 		{
 			_flipperCount++;
+			_enemiesCount++;
 			SpawnFlipper ();
 			yield return new WaitForSeconds (flipperSpawnDelay);
 		}
@@ -158,20 +180,16 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < totalTankers; i++)
 		{
 			_tankerCount++;
+			_enemiesCount++;
 			SpawnTanker();
 			yield return new WaitForSeconds (tankerSpawnDelay);
 		}
 	}
-
-	//Random spawn point
-	public int RandomVal()
-	{
-		return (int)(Random.value * (_mapManager.mapLines.Length - 1));
-	}
+		
 	//Spawns new flipper enemy on field, associated with map line
 	public void SpawnFlipper()
 	{
-		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
@@ -180,7 +198,7 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnTanker()
 	{
-		MapLine newMapLine = _mapManager.mapLines [RandomVal ()];
+		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
@@ -199,7 +217,7 @@ public class GameManager : MonoBehaviour {
 	void SetEndMessage() {
 		string msg = "";
 
-		if (curLives < 0)
+		if (GlobalVariables.lives < 0)
 			msg = "Game Over";
 		else
 			msg = "Round Complete";
@@ -217,9 +235,11 @@ public class GameManager : MonoBehaviour {
 
 	public void FlipperDestroyed() {
 		EnemyDestroyed ("Flipper");
+		GlobalVariables.score += 150;
 	}
 	public void TankerDestroyed() {
 		EnemyDestroyed ("Tanker");
+		GlobalVariables.score += 100;
 	}
 
 	void EnemyDestroyed(string type) {
@@ -231,4 +251,19 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	void UpdateScore() {
+		score.text = GlobalVariables.score.ToString();
+	}
+
+	public void DestroyAllEnemies() {
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
+		}
+	}
+
+	public void DestroyAllProjectiles() {
+		foreach (GameObject proj in GameObject.FindGameObjectsWithTag("Projectile")) {
+			Destroy (proj); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
+		}
+	}
 }
