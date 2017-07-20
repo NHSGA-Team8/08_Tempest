@@ -98,7 +98,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		{
 			StartCoroutine (RotateAroundEdge ());
 		}
-		else if (_straightMovement)
+		else if (_straightMovement && !reachedEnd)
 		{
 			//Only move in Z direction, aka depth
 			//rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
