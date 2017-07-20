@@ -104,7 +104,8 @@ public class Flipper : MonoBehaviour, IShipBase
 					}
 				}
 				//Move (_isCW);
-				thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
+				//thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
+				_newPos = _nextMapLine.GetMidPoint();
 				rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
 				if (_newMapLine != null) {
 					thisMapLine = _newMapLine;
@@ -201,7 +202,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
 		//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
 		//newFlipperShell.velocity = 20f * transform.forward; //Directly changing velocity
-		newFlipperShell.GetComponent<Rigidbody> ().velocity = -1 * 20f * transform.forward; //Directly changing velocity
+		newFlipperShell.GetComponent<Rigidbody> ().velocity = -1 * 10f * transform.forward; //Directly changing velocity
 	}
 
 	private IEnumerator FirePeriodically()
