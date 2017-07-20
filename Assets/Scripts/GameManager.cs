@@ -212,12 +212,22 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator SpawnPowerUps()
     {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 89ba175e58ee6b629f29cc0c0c550753eef03f41
         for (int i = 0; i < totalPowerUps; i++)
         {
             SpawnPowerUp();
             yield return new WaitForSeconds(powerUpSpawnDelay);
         }
+<<<<<<< HEAD
+
 		yield return null;
+
+=======
+		yield return null;
+>>>>>>> 89ba175e58ee6b629f29cc0c0c550753eef03f41
     }
 		
 	//Spawns new flipper enemy on field, associated with map line
@@ -240,15 +250,19 @@ public class GameManager : MonoBehaviour {
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
+<<<<<<< HEAD
+
+=======
 		
+>>>>>>> bf44873e772080c6c3755fccbdc8e0aacc716bba
     public void SpawnPowerUp()
     {
         int index = Random.Range(1, _mapManager.mapLines.Length - 1);
         MapLine newMapLine = _mapManager.mapLines[index];
         float _mapDepth = _mapManager.depth;
         GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-        //powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
-        //powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
+        powerUp.GetComponent<PowerUp>().curMapLine = newMapLine;
+        powerUp.GetComponent<PowerUp>().moveSpeed *= currentRound * speedMulti;
     }
 
 	public void SpawnSpiker()
@@ -259,6 +273,10 @@ public class GameManager : MonoBehaviour {
 		GameObject newShip = Instantiate (spikerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), spikerPrefab.transform.rotation);
 		newShip.GetComponent<Spiker>().moveSpeed *= currentRound * speedMulti;
 	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> bf44873e772080c6c3755fccbdc8e0aacc716bba
 
 	bool EnemiesAtEdge() {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
