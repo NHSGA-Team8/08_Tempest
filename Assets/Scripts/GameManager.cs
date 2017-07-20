@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour {
 		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine(FlashScreen (4f, 0.5f));
+			StartCoroutine(FlashScreen (4f, 0.1f));
 			yield return new WaitForSeconds(1);
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
 		
@@ -154,6 +154,7 @@ public class GameManager : MonoBehaviour {
 
 	public void OnPlayerDeath()
 	{
+		StartCoroutine(FlashScreen (0f, 0.15f, 0.7f));
 		DestroyAllEnemies ();
 		DestroyAllProjectiles ();
 		GlobalVariables.lives--;
@@ -242,8 +243,7 @@ public class GameManager : MonoBehaviour {
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
-
-<<<<<<< HEAD
+		
     public void SpawnPowerUp()
     {
         int index = Random.Range(1, _mapManager.mapLines.Length - 1);
@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour {
         powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
         powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
     }
-=======
+
 	public void SpawnSpiker()
 	{
 		int index = Random.Range (1, _mapManager.mapLines.Length - 1);
@@ -262,7 +262,6 @@ public class GameManager : MonoBehaviour {
 		GameObject newShip = Instantiate (spikerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), spikerPrefab.transform.rotation);
 		newShip.GetComponent<Spiker>().moveSpeed *= currentRound * speedMulti;
 	}
->>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
 
 	bool EnemiesAtEdge() {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
@@ -286,9 +285,34 @@ public class GameManager : MonoBehaviour {
 
 	public IEnumerator FlashScreen(float wait, float duration) {
 		yield return new WaitForSeconds (wait);
+		/*
 		for (int i = 0; i <= 255; i++) {
 			flash.color = new Color (1f, 1f, 1f, ((float)i / 255f));
-			yield return new WaitForSeconds (duration / 255);
+			yield return new WaitForSeconds (duration / 255f);
+		}
+		*/
+		float i = 0f;
+		while (i < 1f) {
+			i += duration;
+			flash.color = new Color (1f, 1f, 1f, i);
+			yield return new WaitForSeconds (0.01f);
+		}
+	}
+
+	public IEnumerator FlashScreen(float wait, float duration, float hold) {
+		yield return new WaitForSeconds (wait);
+		float i = 0f;
+		while (i < 1f) {
+			i += duration;
+			flash.color = new Color (1f, 1f, 1f, i);
+			yield return new WaitForSeconds (0.01f);
+		}
+		yield return new WaitForSeconds (hold);
+		i = 1f;
+		while (i > 0f) {
+			i -= duration;
+			flash.color = new Color (1f, 1f, 1f, i);
+			yield return new WaitForSeconds (0.01f);
 		}
 	}
 
