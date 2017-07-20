@@ -84,12 +84,25 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 			Vector3 mousePos = Input.mousePosition;
 			_targetMapLine = curMapLine;
 			foreach (MapLine ml in _mapManager.mapLines) {
-				Vector3 MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, camera.transform.position.z - camera.depth));
-				Vector3 curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, camera.transform.position.z - camera.depth));
-				if (Vector3.Distance (mousePos, MLPos) < Vector3.Distance (mousePos, curMLPos)) {
+				Vector3 MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, 0)); //camera.transform.position.z - camera.depth
+				if (movingForward == true)
+					MLPos = camera.WorldToScreenPoint (new Vector3(ml.GetMidPoint ().x, ml.GetMidPoint ().y, camera.transform.position.z - camera.depth));
+				Vector3 curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, 0)); // 
+				if (movingForward == true)
+					curMLPos = camera.WorldToScreenPoint (new Vector3(_targetMapLine.GetMidPoint ().x, _targetMapLine.GetMidPoint ().y, camera.transform.position.z - camera.depth));
+				float mlDist = Vector3.Distance (mousePos, MLPos); //- _mapManager.mapLineDistBonus [ml.GetLineNum ()];
+				float curDist = Vector3.Distance (mousePos, curMLPos); //- _mapManager.mapLineDistBonus [_targetMapLine.GetLineNum ()];
+				if (mlDist < curDist) {
+					//print ("Line " + ml.GetLineNum () + " (" + Mathf.RoundToInt(mlDist).ToString() + ") is closer than Line " + _targetMapLine.GetLineNum () + " (" + Mathf.RoundToInt(curDist).ToString() + ")");
 					_targetMapLine = ml;
 				}
 			}
+			/*
+			print ("dist to 0: " + (Vector3.Distance (mousePos, _mapManager.mapLines[0].GetMidPoint ()) - _mapManager.mapLineDistBonus[0]));
+			print ("dist to 1: " + (Vector3.Distance (mousePos, _mapManager.mapLines[1].GetMidPoint ()) - _mapManager.mapLineDistBonus[1]));
+			print ("dist to 12: " + (Vector3.Distance (mousePos, _mapManager.mapLines[12].GetMidPoint ()) - _mapManager.mapLineDistBonus[12]));
+			print ("dist to 13: " + (Vector3.Distance (mousePos, _mapManager.mapLines[13].GetMidPoint ()) - _mapManager.mapLineDistBonus [13]));
+			*/
 			int rightDist = curMapLine.getShortestDist (curMapLine.leftLine, _targetMapLine);
 			int leftDist = curMapLine.getShortestDist (curMapLine.rightLine, _targetMapLine);
 			if (leftDist < rightDist) {
@@ -133,6 +146,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 				curMapLine = newMapLine;
 			}
 		} else {
+
+
 
 			Vector3 newPos = _nextMapLine.GetMidPoint();
 			if (movingForward == true) {
