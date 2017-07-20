@@ -954,18 +954,10 @@ MonoBehaviour:
   totalFlippers: 100
   totalTankers: 50
   totalSpikers: 4
-  totalPowerUps: 3
+  totalPowerUps: 0
   flipperSpawnDelay: 0.75
   tankerSpawnDelay: 1.5
-<<<<<<< HEAD
   powerUpSpawnDelay: 0
-=======
-<<<<<<< HEAD
-  powerUpSpawnDelay: 0
-=======
-  powerUpSpawnDelay: 15
->>>>>>> 7ba76f56a682f5f85c84009cd8f5d616591c323f
->>>>>>> 7a9aca79f2418bfaf052091757fed97f940d441c
   currentRound: 2
   nextScene: 0
   totalLives: 3
