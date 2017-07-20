@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour {
 	public AudioClip ac_portalEnter;
 	public AudioClip ac_portalDuring;
 	public AudioClip ac_portal;
+	public AudioClip ac_gameover;
 
 	[Header("Other References")]
+	public AudioSource musicAS;
 	public Camera cam;
 	public Canvas uiCanvas;
 	public Text notification;
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour {
 
 		if (GlobalVariables.lives < 0)
 		{
+			
 			// Back to menu if dead
 			SceneManager.LoadScene(0);
 		}
@@ -133,10 +136,13 @@ public class GameManager : MonoBehaviour {
 		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine(FlashScreen (4f, 0.1f));
-			yield return new WaitForSeconds(1);
+			StartCoroutine (FlashScreen (4f, 0.1f));
+			yield return new WaitForSeconds (1);
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
 		
+		} else {
+			musicAS.clip = ac_gameover;
+			musicAS.Play ();
 		}
 		yield return new WaitForSeconds(6);
 	}
@@ -212,11 +218,14 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator SpawnPowerUps()
     {
+
         for (int i = 0; i < totalPowerUps; i++)
         {
             SpawnPowerUp();
             yield return new WaitForSeconds(powerUpSpawnDelay);
         }
+
+
 		yield return null;
 
     }
@@ -229,8 +238,7 @@ public class GameManager : MonoBehaviour {
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
-		//newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
-		newShip.GetComponent<Flipper>().movementForce = currentRound;
+		newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
 	}
 
 	public void SpawnTanker()
@@ -242,15 +250,15 @@ public class GameManager : MonoBehaviour {
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
-		
+
     public void SpawnPowerUp()
     {
         int index = Random.Range(1, _mapManager.mapLines.Length - 1);
         MapLine newMapLine = _mapManager.mapLines[index];
         float _mapDepth = _mapManager.depth;
         GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-        //powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
-        //powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
+        powerUp.GetComponent<PowerUp>().curMapLine = newMapLine;
+        powerUp.GetComponent<PowerUp>().moveSpeed *= currentRound * speedMulti;
     }
 
 	public void SpawnSpiker()
