@@ -33,7 +33,7 @@ public class FlipperBullet : MonoBehaviour
 	{
 		if (other.gameObject.GetComponent<PlayerBullet> () != null) {
 			Destroy (gameObject);
-			Destroy (other.gameObject);
+			//Destroy (other.gameObject);
 		}
 		if (other.gameObject.GetComponent<PlayerShip> () != null) {
 			Destroy (gameObject);
