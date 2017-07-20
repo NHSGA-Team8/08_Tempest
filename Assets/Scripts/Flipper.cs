@@ -13,6 +13,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	public float reloadTime;
 	public int levelNum;
 	public GameObject flipperShell;
+	//public Rigidbody flipperShell;
 	public GameObject player;
 	public GameObject flipperEnemy;
 	public float respawnTime;
@@ -195,9 +196,12 @@ public class Flipper : MonoBehaviour, IShipBase
 	// Called to fire a projectile.
 	public void Fire()
 	{
-		GameObject newFlipperShell = Instantiate (flipperShell);
+		GameObject newFlipperShell = Instantiate (flipperShell, transform.position, rb.rotation);
+		//Rigidbody newFlipperShell = Instantiate (flipperShell, transform.position, transform.rotation) as Rigidbody;
 		//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
-		newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
+		//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
+		//newFlipperShell.velocity = 20f * transform.forward; //Directly changing velocity
+		newFlipperShell.GetComponent<Rigidbody> ().velocity = -1 * 20f * transform.forward; //Directly changing velocity
 	}
 
 	private IEnumerator FirePeriodically()
