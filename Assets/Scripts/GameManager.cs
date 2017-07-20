@@ -212,15 +212,13 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator SpawnPowerUps()
     {
-<<<<<<< HEAD
         for (int i = 0; i < totalPowerUps; i++)
         {
             SpawnPowerUp();
             yield return new WaitForSeconds(powerUpSpawnDelay);
         }
-=======
 		yield return null;
->>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
+
     }
 		
 	//Spawns new flipper enemy on field, associated with map line
@@ -231,7 +229,8 @@ public class GameManager : MonoBehaviour {
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
-		newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
+		//newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
+		newShip.GetComponent<Flipper>().movementForce = currentRound;
 	}
 
 	public void SpawnTanker()
@@ -250,8 +249,8 @@ public class GameManager : MonoBehaviour {
         MapLine newMapLine = _mapManager.mapLines[index];
         float _mapDepth = _mapManager.depth;
         GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-        powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
-        powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
+        //powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
+        //powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
     }
 
 	public void SpawnSpiker()
