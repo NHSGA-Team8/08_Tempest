@@ -561,7 +561,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1001 &680512125
 Prefab:
   m_ObjectHideFlags: 0
@@ -698,8 +697,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 698838089}
-=======
->>>>>>> 7ed628626ea2c4c76abeab966be489ab7e34bddf
 --- !u!1001 &830843654
 Prefab:
   m_ObjectHideFlags: 0
@@ -1048,7 +1045,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &1247648969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,9 +1101,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
 --- !u!223 &1247648972
-=======
 --- !u!223 &1247648972 stripped
->>>>>>> 7ed628626ea2c4c76abeab966be489ab7e34bddf
 Canvas:
   m_PrefabParentObject: {fileID: 223276327779772142, guid: f5d8e738a822bfc48843945a78693bb2,
     type: 2}
@@ -1273,6 +1267,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224603172706046872, guid: f5d8e738a822bfc48843945a78693bb2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 267
+      objectReference: {fileID: 0}
+    - target: {fileID: 224603172706046872, guid: f5d8e738a822bfc48843945a78693bb2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -42
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5d8e738a822bfc48843945a78693bb2, type: 2}

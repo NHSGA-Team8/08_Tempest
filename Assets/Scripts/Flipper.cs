@@ -195,9 +195,9 @@ public class Flipper : MonoBehaviour, IShipBase
 	// Called to fire a projectile.
 	public void Fire()
 	{
-		GameObject newFlipperShell = Instantiate (flipperShell);
-		//newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
-		newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
+		GameObject newFlipperShell = Instantiate (flipperShell, transform.position, rb.rotation);
+		newFlipperShell.GetComponent<Rigidbody> ().AddForce (shellSpeed * transform.forward * Time.deltaTime);
+		//newFlipperShell.GetComponent<Rigidbody> ().MovePosition (newFlipperShell.transform.position + shellSpeed * transform.forward * Time.deltaTime);
 	}
 
 	private IEnumerator FirePeriodically()
