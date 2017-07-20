@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public int totalPowerUps;
 	public float flipperSpawnDelay;
 	public float tankerSpawnDelay;
+    public float powerUpSpawnDelay;
 	public int currentRound;
 	public int nextScene;
 	public int totalLives;
@@ -210,7 +211,15 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator SpawnPowerUps()
     {
+<<<<<<< HEAD
+        for (int i = 0; i < totalPowerUps; i++)
+        {
+            SpawnPowerUp();
+            yield return new WaitForSeconds(powerUpSpawnDelay);
+        }
+=======
 		yield return null;
+>>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
     }
 		
 	//Spawns new flipper enemy on field, associated with map line
@@ -234,6 +243,17 @@ public class GameManager : MonoBehaviour {
 		newShip.GetComponent<Tanker>().moveSpeed *= currentRound * speedMulti;
 	}
 
+<<<<<<< HEAD
+    public void SpawnPowerUp()
+    {
+        int index = Random.Range(1, _mapManager.mapLines.Length - 1);
+        MapLine newMapLine = _mapManager.mapLines[index];
+        float _mapDepth = _mapManager.depth;
+        GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
+        powerUp.GetComponent<PowerUp>().SetMapLine(newMapLine);
+        powerUp.GetComponent<PowerUp>().movementForce *= currentRound * speedMulti;
+    }
+=======
 	public void SpawnSpiker()
 	{
 		int index = Random.Range (1, _mapManager.mapLines.Length - 1);
@@ -242,6 +262,7 @@ public class GameManager : MonoBehaviour {
 		GameObject newShip = Instantiate (spikerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), spikerPrefab.transform.rotation);
 		newShip.GetComponent<Spiker>().moveSpeed *= currentRound * speedMulti;
 	}
+>>>>>>> 40a359e713d3fe1fd29be415ecc77c094c75e002
 
 	bool EnemiesAtEdge() {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
@@ -283,6 +304,10 @@ public class GameManager : MonoBehaviour {
 		EnemyDestroyed ("Spiker");
 		GlobalVariables.score += 50;
 	}
+    public void PowerUpDestroyed()
+    {
+        GlobalVariables.score += 50;
+    }
 
 	void EnemyDestroyed(string type) {
 		if (type == "Flipper") {
