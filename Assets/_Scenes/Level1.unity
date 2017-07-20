@@ -902,6 +902,8 @@ MonoBehaviour:
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
   ac_portal: {fileID: 8300000, guid: 7e218b73611e11b479bce3e18bf929b2, type: 3}
+  ac_gameover: {fileID: 8300000, guid: baceb400ca8453347ad6923570c18936, type: 3}
+  musicAS: {fileID: 1363293112}
   cam: {fileID: 388281289}
   uiCanvas: {fileID: 1440798111}
   notification: {fileID: 1474811620}

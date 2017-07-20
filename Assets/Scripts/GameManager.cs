@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour {
 	public AudioClip ac_portalEnter;
 	public AudioClip ac_portalDuring;
 	public AudioClip ac_portal;
+	public AudioClip ac_gameover;
 
 	[Header("Other References")]
+	public AudioSource musicAS;
 	public Camera cam;
 	public Canvas uiCanvas;
 	public Text notification;
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour {
 
 		if (GlobalVariables.lives < 0)
 		{
+			
 			// Back to menu if dead
 			SceneManager.LoadScene(0);
 		}
@@ -133,10 +136,13 @@ public class GameManager : MonoBehaviour {
 		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine(FlashScreen (4f, 0.1f));
-			yield return new WaitForSeconds(1);
+			StartCoroutine (FlashScreen (4f, 0.1f));
+			yield return new WaitForSeconds (1);
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
 		
+		} else {
+			musicAS.clip = ac_gameover;
+			musicAS.Play ();
 		}
 		yield return new WaitForSeconds(6);
 	}

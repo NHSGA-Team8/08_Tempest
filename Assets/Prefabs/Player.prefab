@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627220439160560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4263117807265120}
@@ -161,7 +161,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!64 &64604747124565052
 MeshCollider:
@@ -187,8 +187,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.51072747, y: 0.08844471, z: 0.50196713}
+  m_Center: {x: -0.0003193617, y: 0.015775919, z: -0.046066433}
 --- !u!82 &82899460363695682
 AudioSource:
   m_ObjectHideFlags: 1
@@ -297,14 +297,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff13571f7828be49abe61311260ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   inputAxis: Horizontal
   moveSpeed: 4
   bullet: {fileID: 54200100160621030, guid: cb6cc691993a4f7419e044805743b2cc, type: 2}
   fireTransform: {fileID: 4684123804756882}
   maxBullets: 7
-  fireCooldown: 0.2
-  explodePrefab: {fileID: 0}
-  soundFire: {fileID: 0}
-  soundDeath: {fileID: 0}
-  soundZapper: {fileID: 0}
+  fireCooldown: 0.1
+  explodePrefab: {fileID: 1791619336836756, guid: e8f1b92538b33d0439e54f68ced098c7,
+    type: 2}
+  zapperPrefab: {fileID: 1719640603345952, guid: 7dafa9e509aa991418d50e1e06674db5,
+    type: 2}
+  moveCooldown: 0
+  soundFire: {fileID: 8300000, guid: 9c64c8c81398b8647bdad683024a32a2, type: 3}
+  soundDeath: {fileID: 8300000, guid: 9d252576e3b22754299f6f2d52edba74, type: 3}
+  soundZapper: {fileID: 8300000, guid: d1b6af1dc29416347970fa879d2cb166, type: 3}
+  highlighter: {fileID: 0}
+  legacyMovement: 0
   movingForward: 0
