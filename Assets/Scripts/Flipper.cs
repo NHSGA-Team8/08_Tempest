@@ -39,6 +39,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private Quaternion _desiredRotation;
 
 	private bool reachedEnd = false;
+	private bool hasFinishedMoving;
 
 	Rigidbody rb;
 
@@ -80,7 +81,8 @@ public class Flipper : MonoBehaviour, IShipBase
 	}
 
 	// Update is called once per frame
-	void FixedUpdate ()
+	//Fi
+	void Update ()
 	{
 		if (transform.position.z <= 0)
 		{
@@ -88,55 +90,9 @@ public class Flipper : MonoBehaviour, IShipBase
 			reachedEnd = true;
 		}
 
-		if (reachedEnd) //In case the player ship is flying in after respawning?
+		if (reachedEnd && hasFinishedMoving) //In case the player ship is flying in after respawning?
 		{
-			Vector3 _newPos;
-			MapLine _newMapLine, _nextMapLine;
-			//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
-			//rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
-			//rb.constraints = RigidbodyConstraints.FreezePositionZ;
-			if (GameObject.Find ("Player") != null) {
-				_currPlayerNum = GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine.GetLineNum ();
-				if (_isCW == 0) {
-					int _beCW = _currPlayerNum - thisMapLine.GetLineNum ();
-					int _beCCW = _mapManager.mapLines.Length - _currPlayerNum + thisMapLine.GetLineNum ();
-					if (_beCW > _beCCW) {
-						_isCW = 1;
-					} else if (_beCW < _beCCW) {
-						_isCW = -1;
-					} else { //Equal distance from player
-						if (Random.value > 0.5) {
-							_isCW = 1;
-						} else {
-							_isCW = -1;
-						}
-					}
-				}
-				//Move (_isCW);
-				/*
-				thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
-				if (_newMapLine != null) {
-					thisMapLine = _newMapLine;
-				}
-				*/
-				if (thisMapLine == GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine) {
-					_nextMapLine = thisMapLine;
-				} else if (_isCW == 1) {
-					_nextMapLine = thisMapLine.leftLine;
-					Debug.Log ("Left");
-				} else {
-					_nextMapLine = thisMapLine.rightLine;
-					Debug.Log ("Right");
-				}
-				_newPos = _nextMapLine.GetMidPoint();
-				transform.position = new Vector3 (_newPos.x, _newPos.y, 0);
-				//rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
-				Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
-				Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
-				//print (Quaternion.Euler(newDirVec));
-				transform.rotation = Quaternion.Euler(newDirVec);
-				//rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
-			}
+			StartCoroutine (RotateAroundEdge ());
 		}
 		else if (_straightMovement)
 		{
@@ -161,6 +117,64 @@ public class Flipper : MonoBehaviour, IShipBase
 		}
 	}
 
+	private IEnumerator RotateAroundEdge ()
+	{
+		hasFinishedMoving = false;
+		yield return new WaitForSeconds (2);
+		Vector3 _newPos;
+		MapLine _newMapLine, _nextMapLine;
+		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
+		//rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
+		//rb.constraints = RigidbodyConstraints.FreezePositionZ;
+		if (GameObject.Find ("Player") != null) {
+			_currPlayerNum = GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine.GetLineNum ();
+			if (_isCW == 0) {
+				int _beCW = _currPlayerNum - thisMapLine.GetLineNum ();
+				int _beCCW = _mapManager.mapLines.Length - _currPlayerNum + thisMapLine.GetLineNum ();
+				if (_beCW > _beCCW) {
+					_isCW = 1;
+				} else if (_beCW < _beCCW) {
+					_isCW = -1;
+				} else { //Equal distance from player
+					if (Random.value > 0.5) {
+						_isCW = 1;
+					} else {
+						_isCW = -1;
+					}
+				}
+			}
+			//Move (_isCW);
+			/*
+				thisMapLine.UpdateMovement (transform.position, Time.deltaTime * _isCW * movementForce * 0.2f, out _newPos, out _newMapLine);
+				if (_newMapLine != null) {
+					thisMapLine = _newMapLine;
+				}
+				*/
+			if (thisMapLine == GameObject.Find ("Player").GetComponent<PlayerShip> ().curMapLine) {
+				_nextMapLine = thisMapLine;
+			} else if (_isCW == 1) {
+				_nextMapLine = thisMapLine.leftLine;
+				Debug.Log ("Left");
+			} else {
+				_nextMapLine = thisMapLine.rightLine;
+				Debug.Log ("Right");
+			}
+			if (_nextMapLine != null) {
+				thisMapLine = _nextMapLine;
+			}
+			_newPos = _nextMapLine.GetMidPoint();
+			Debug.Log ("Current Position: "+transform.position);
+			Debug.Log ("New Position: "+_newPos);
+			transform.position = new Vector3 (_newPos.x, _newPos.y, 0);
+			//rb.MovePosition (new Vector3 (_newPos.x, _newPos.y, 0));
+			Vector3 curDirVec = _nextMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+			//print (Quaternion.Euler(newDirVec));
+			transform.rotation = Quaternion.Euler(newDirVec);
+			//rb.MoveRotation (Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), newDirVec));
+			hasFinishedMoving = true;
+		}
+	}
 	void Move(int _dir){
 		/*
 		Vector3 newPos;
