@@ -561,7 +561,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1001 &680512125
 Prefab:
   m_ObjectHideFlags: 0
@@ -693,8 +692,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 698838089}
-=======
->>>>>>> 5337610f418e7065550ff11086b16d1716436b9c
 --- !u!1001 &830843654
 Prefab:
   m_ObjectHideFlags: 0
@@ -1042,7 +1039,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &1247648969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,8 +1106,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> 5337610f418e7065550ff11086b16d1716436b9c
 --- !u!1 &1373968890
 GameObject:
   m_ObjectHideFlags: 0
