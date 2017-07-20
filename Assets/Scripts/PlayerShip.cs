@@ -60,13 +60,14 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 
 	// Update is called once per frame
 	void Update () {
-		Vector3 curDirVec = curMapLine.GetDirectionVector ();
-		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
-		highlighter.transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,-1f), newDirVec);
-		highlighter.transform.position = curMapLine.GetMidPoint() + new Vector3(0f,0f, _mapManager.depth / 2);
-		RectTransform rt = highlighter.GetComponent<RectTransform> ();
-		rt.sizeDelta = new Vector2 (1.1f * curMapLine.GetLength (), _mapManager.depth);
-
+		if (curMapLine != null) {
+			Vector3 curDirVec = curMapLine.GetDirectionVector ();
+			Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
+			highlighter.transform.rotation = Quaternion.LookRotation (new Vector3 (0f, 0f, -1f), newDirVec);
+			highlighter.transform.position = curMapLine.GetMidPoint () + new Vector3 (0f, 0f, _mapManager.depth / 2);
+			RectTransform rt = highlighter.GetComponent<RectTransform> ();
+			rt.sizeDelta = new Vector2 (1.1f * curMapLine.GetLength (), _mapManager.depth);
+		}
 	}
 
 	void FixedUpdate(){
@@ -98,12 +99,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 					_targetMapLine = ml;
 				}
 			}
-			/*
-			print ("dist to 0: " + (Vector3.Distance (mousePos, _mapManager.mapLines[0].GetMidPoint ()) - _mapManager.mapLineDistBonus[0]));
-			print ("dist to 1: " + (Vector3.Distance (mousePos, _mapManager.mapLines[1].GetMidPoint ()) - _mapManager.mapLineDistBonus[1]));
-			print ("dist to 12: " + (Vector3.Distance (mousePos, _mapManager.mapLines[12].GetMidPoint ()) - _mapManager.mapLineDistBonus[12]));
-			print ("dist to 13: " + (Vector3.Distance (mousePos, _mapManager.mapLines[13].GetMidPoint ()) - _mapManager.mapLineDistBonus [13]));
-			*/
+
 			int rightDist = curMapLine.getShortestDist (curMapLine.leftLine, _targetMapLine);
 			int leftDist = curMapLine.getShortestDist (curMapLine.rightLine, _targetMapLine);
 			if (leftDist < rightDist) {
