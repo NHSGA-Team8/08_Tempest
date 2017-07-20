@@ -636,6 +636,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+--- !u!1001 &910921405
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1247648973}
+    m_Modifications:
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -397.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -153.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eef7471c8a74c0c4299f38a3140f79bf, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &910921406 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4724961485900512, guid: eef7471c8a74c0c4299f38a3140f79bf,
+    type: 2}
+  m_PrefabInternal: {fileID: 910921405}
+=======
+>>>>>>> 7ed628626ea2c4c76abeab966be489ab7e34bddf
 --- !u!1 &1068051022
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
