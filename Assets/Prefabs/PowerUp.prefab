@@ -108,7 +108,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1064139677555748}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.01, z: 0.01}
@@ -141,8 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cd2287188c11548a0f02b8ceeb25b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 0
+  minePrefab: {fileID: 1211748995072474, guid: 1aa1eb8ab3dd7324ca38051adf0e3c31, type: 2}
+  godPrefab: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc, type: 2}
   explodePrefab: {fileID: 1151035608467288, guid: ed681878f706e134f85201e454970837,
     type: 2}
-  levelNum: 2
   soundDeath: {fileID: 8300000, guid: 9d252576e3b22754299f6f2d52edba74, type: 3}
+  moveSpeed: 1

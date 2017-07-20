@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
+	public GameObject minePrefab;
 	public GameObject godPrefab;
     public GameObject explodePrefab;
     public AudioClip soundDeath;
 
     [HideInInspector] public MapLine curMapLine;
     [HideInInspector] public float moveSpeed = 1f;
+
+	public enum POWERUPS
+	{
+		Shield,
+		Mine,
+	};
 
     private MapManager _mapManager;
     private GameManager _gameManager;
@@ -62,10 +69,20 @@ public class PowerUp : MonoBehaviour {
         Destroy(gameObject);
 
 		// Shield
-		_playerRef.SetGod(5);
-		GameObject newEffect = Instantiate(godPrefab, _playerRef.transform.position, _playerRef.transform.rotation);
-		newEffect.transform.SetParent (_playerRef.transform);
-		Destroy (godPrefab, 5);
+		POWERUPS powerup = POWERUPS.Mine;//(POWERUPS)Random.Range(0, 1);
+		if (powerup == POWERUPS.Shield) {
+			_playerRef.SetGod (5);
+			GameObject newEffect = Instantiate (godPrefab, _playerRef.transform.position, _playerRef.transform.rotation);
+			newEffect.transform.SetParent (_playerRef.transform);
+			Destroy (newEffect, 5);
+		} else if (powerup == POWERUPS.Mine) {
+			foreach (MapLine ml in _mapManager.mapLines) {
+				if (Random.Range (0, 10) >= 7) {
+					GameObject shellInstance = Instantiate (minePrefab, ml.GetMidPoint(), Quaternion.Euler(-transform.forward));
+					shellInstance.GetComponent<Rigidbody>().velocity = 1f * (transform.forward); 
+				}
+			}
+		}
     }
 
 }

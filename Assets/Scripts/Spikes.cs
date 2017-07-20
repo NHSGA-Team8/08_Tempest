@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spikes : MonoBehaviour {
-	public float damageMulti = 2f;
+	public float damageMulti = 0.1f;
 	public float lengthMulti;
 	[HideInInspector] public float length;
 	[HideInInspector] public Spiker spiker;
@@ -27,8 +27,6 @@ public class Spikes : MonoBehaviour {
 		SetLength (distance);
 	}
 
-
-
 	public void SetLength(float newLen) {
 		if (newLen > length) {
 			length = newLen;
@@ -37,13 +35,21 @@ public class Spikes : MonoBehaviour {
 		
 	public void TakeDamage(int dmg) {
 		length -= damageMulti * (float)dmg;
+		GlobalVariables.score += dmg;
 		if (length <= 0)
-			Destroy (gameObject);
+			OnDeath ();
 	}
 
-	public void OnDestroy() {
+	public void OnDeath() {
 		if (spiker != null) {
 			spiker.SpikeDestroyed ();
+		}
+		Destroy (gameObject);
+	}
+
+	void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<IShipBase> () != null && col.tag != "Enemy") {
+			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
 		}
 	}
 }

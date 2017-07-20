@@ -885,7 +885,8 @@ MonoBehaviour:
     type: 2}
   spikerPrefab: {fileID: 1794537389220604, guid: 465edb0b62eb5ee4e9715d03d997a5aa,
     type: 2}
-  powerUpPrefab: {fileID: 100000, guid: 0c65859cfbaf5fe4eab545959660eac3, type: 3}
+  powerUpPrefab: {fileID: 1064139677555748, guid: dd922e2baf388af4a923c65aa424f2f5,
+    type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
   totalFlippers: 90
@@ -899,6 +900,7 @@ MonoBehaviour:
   nextScene: 2
   totalLives: 3
   speedMulti: 3
+  test: 0
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
   ac_portal: {fileID: 8300000, guid: 7e218b73611e11b479bce3e18bf929b2, type: 3}
