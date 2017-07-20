@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject flipperPrefab;
 	public GameObject tankerPrefab;
+    public GameObject powerUpPrefab;
 	public GameObject spawnEffect;
 
 	[Header("Round Settings")]
 	public int totalFlippers;
 	public int totalTankers;
+    public int totalPowerUps;
 	public float flipperSpawnDelay;
 	public float tankerSpawnDelay;
 	public int currentRound;
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator RoundStarting() {
 		SpawnPlayerShip ();
 		SpawnEnemyShips ();
+        StartCoroutine(SpawnPowerUps());
 
 		yield return new WaitForSeconds(1);
 		_startTime = Time.fixedTime;
@@ -185,11 +188,17 @@ public class GameManager : MonoBehaviour {
 			yield return new WaitForSeconds (tankerSpawnDelay);
 		}
 	}
+
+    private IEnumerator SpawnPowerUps()
+    {
+        
+    }
 		
 	//Spawns new flipper enemy on field, associated with map line
 	public void SpawnFlipper()
 	{
-		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
+		int index = Random.Range (1, _mapManager.mapLines.Length - 1);
+		MapLine newMapLine = _mapManager.mapLines [index];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
 		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
@@ -198,7 +207,8 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnTanker()
 	{
-		MapLine newMapLine = _mapManager.mapLines [Random.Range(1, _mapManager.mapLines.Length - 1)];
+		int index = Random.Range (1, _mapManager.mapLines.Length - 1);
+		MapLine newMapLine = _mapManager.mapLines [index];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (tankerPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), tankerPrefab.transform.rotation);
 		newShip.GetComponent<Tanker> ().curMapLine = newMapLine;
@@ -241,6 +251,10 @@ public class GameManager : MonoBehaviour {
 		EnemyDestroyed ("Tanker");
 		GlobalVariables.score += 100;
 	}
+	public void SpikedDestroyed() {
+		EnemyDestroyed ("Spiker");
+		GlobalVariables.score += 50;
+	}
 
 	void EnemyDestroyed(string type) {
 		if (type == "Flipper") {
@@ -248,6 +262,8 @@ public class GameManager : MonoBehaviour {
 		} else if (type == "Tanker") {
 			// Tanker spawns two Flippers, which means a net total of +1 enemies
 			_remainingEnemies++; 
+		} else if (type == "Spiker") {
+			_remainingEnemies--;
 		}
 	}
 
