@@ -18,16 +18,26 @@ public class MapManager : MonoBehaviour {
 	// MapLines are generated at Start(), and they represent a line in the map.
 	[HideInInspector] public MapLine[] mapLines;
 
+	// Used to prevent MapLines in a corner never getting selected
+	//public float[] mapLineDistBonus;
+
 	public int startMapLineIndex;
 
 	public float depth;
 
 	// Use this for initialization
 	void Start () {
-		mapLines = new MapLine[mapVertices.Length - 1];
-		for (int i = 0; i < mapLines.Length; i++) {
+		if (isLoop == true)
+			mapLines = new MapLine[mapVertices.Length];
+		else
+			mapLines = new MapLine[mapVertices.Length - 1];
+		for (int i = 0; i < mapVertices.Length - 1; i++) {
 			mapLines [i] = new MapLine (mapVertices[i], mapVertices[i+1]);
 			mapLines [i].SetLineNum (i);
+		}
+		if (isLoop == true) {
+			mapLines [mapVertices.Length - 1] = new MapLine (mapVertices [mapVertices.Length - 1], mapVertices [0]);
+			mapLines [mapVertices.Length - 1].SetLineNum (mapVertices.Length - 1);
 		}
 
 		for (int i = 0; i < mapLines.Length; i++) {
@@ -39,7 +49,7 @@ public class MapManager : MonoBehaviour {
 
 		if (isLoop == true) {
 			mapLines [0].SetLeftMapLine (mapLines [mapLines.Length - 1]);
-			mapLines [mapLines.Length - 1].SetRightMapLine (mapLines [0]);
+			mapLines [mapVertices.Length - 1].SetRightMapLine (mapLines [0]);
 		}
 	}
 	
