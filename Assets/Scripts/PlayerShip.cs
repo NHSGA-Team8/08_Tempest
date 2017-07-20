@@ -208,4 +208,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	public MapManager getMapManager() {
 		return _mapManager;
 	}
+
+	public void SetGod(float duration) {
+		_godTimer = Time.fixedTime + duration;
+	}
 }
