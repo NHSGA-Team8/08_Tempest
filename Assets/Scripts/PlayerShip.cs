@@ -17,6 +17,7 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	public float fireCooldown = 0.2f;
 	public MapLine curMapLine;
 	public GameObject explodePrefab;
+	public GameObject zapperPrefab;
 	public float moveCooldown = 0.0f;
 
 	public AudioClip soundFire;
@@ -172,6 +173,8 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 	void Zapper() {
 		_audioSource.clip = soundZapper;
 		_audioSource.Play ();
+		GameObject newZapper = Instantiate (zapperPrefab, gameObject.transform.position, zapperPrefab.transform.rotation);
+		Destroy (newZapper, 3f);
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		foreach (GameObject enemy in enemies) {
 			enemy.GetComponent<IShipBase> ().TakeDamage (10);
