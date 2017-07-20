@@ -22,13 +22,22 @@ public class PlayerBullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.GetComponent<IShipBase> () != null && col.tag == "Enemy")
+		if (col.gameObject.GetComponent<IShipBase> () != null && col.tag == "Enemy") {
 			col.gameObject.GetComponent<IShipBase> ().TakeDamage (1);
-		if (col.gameObject.GetComponent<TankerBullet> () != null)
+			Destroy (gameObject);
+		} else if (col.gameObject.GetComponent<TankerBullet> () != null) {
 			Destroy (col.gameObject);
-		if (col.gameObject.GetComponent<Spikes> () != null)
-			col.gameObject.GetComponent<Spikes>().TakeDamage (1);
-		Destroy (gameObject);
+			//Destroy (gameObject);
+		} else if (col.gameObject.GetComponent<FlipperBullet> () != null) {
+			Destroy (col.gameObject);
+			//Destroy (gameObject);
+		} else if (col.gameObject.GetComponent<Spikes> () != null) {
+			col.gameObject.GetComponent<Spikes> ().TakeDamage (1);
+			Destroy (gameObject);
+		} else if (col.gameObject.GetComponent<PowerUp> () != null) {
+			col.gameObject.GetComponent<PowerUp> ().TakeDamage (1);
+			Destroy (gameObject);
+		}
 	}
 
 }

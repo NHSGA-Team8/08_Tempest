@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1417876579777458}
   m_IsPrefabParent: 1
+--- !u!1 &1142057610508992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4221321202092918}
+  m_Layer: 8
+  m_Name: FireTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1417876579777458
 GameObject:
   m_ObjectHideFlags: 0
@@ -22,11 +37,11 @@ GameObject:
   - component: {fileID: 33798576002233190}
   - component: {fileID: 23077341119392748}
   - component: {fileID: 95369955545507386}
-  - component: {fileID: 114437183316035336}
   - component: {fileID: 54365828706554158}
   - component: {fileID: 65358869925741560}
   - component: {fileID: 82526297242956804}
   - component: {fileID: 108893070891675916}
+  - component: {fileID: 114400314553590702}
   m_Layer: 8
   m_Name: Flipper
   m_TagString: Enemy
@@ -41,10 +56,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1417876579777458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.911977, y: -4.890941, z: 2.2070355}
+  m_LocalPosition: {x: 60.428165, y: 229.8811, z: -440.64035}
   m_LocalScale: {x: 0.035, y: 0.035, z: 0.035}
-  m_Children: []
+  m_Children:
+  - {fileID: 4221321202092918}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4221321202092918
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142057610508992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4145441995463090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23077341119392748
@@ -248,7 +277,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114437183316035336
+--- !u!114 &114400314553590702
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -259,17 +288,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06963b9174e20104d9188951824d0a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 6
-  shellSpeed: 300
-  reloadTime: 0.2
-  levelNum: 1
-  flipperShell: {fileID: 1638749284954108, guid: 95d8750e340b04e459a19c653fd8a887,
+  movementForce: 0
+  shellSpeed: 0
+  reloadTime: 0
+  levelNum: 0
+  flipperShell: {fileID: 1010819511925262, guid: db0bb1fa1bb1b6344be213f7b4a27ea6,
     type: 2}
-  player: {fileID: 1627220439160560, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
-  flipperEnemy: {fileID: 1417876579777458}
-  respawnTime: 0.2
+  player: {fileID: 0}
+  flipperEnemy: {fileID: 0}
+  respawnTime: 0
   inputAxis: Horizontal
   explodePrefab: {fileID: 1151035608467288, guid: 8158ca404c4dbd44bada57971d442dad,
     type: 2}
+  switchTime: 0
   soundFire: {fileID: 8300000, guid: b0818e9b5e90c7843af4548d0d3146a3, type: 3}
   soundDeath: {fileID: 8300000, guid: 9d252576e3b22754299f6f2d52edba74, type: 3}

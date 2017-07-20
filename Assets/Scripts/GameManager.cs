@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	public int nextScene;
 	public int totalLives;
 	public float speedMulti = 5f;
+	public bool test = false;
 
 	[Header("AudioClips")]
 	public AudioClip ac_portalEnter;
@@ -126,7 +127,8 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator RoundPlaying() {
 
-		while (!(GlobalVariables.lives < 0 || (EnemiesAtEdge() == true && _enemiesCount >= _totalEnemies) || _remainingEnemies <= 0)) // !(EnemiesAtEdge() == true && _remainingEnemies > 0 || _remainingEnemies > 0) 
+		//while (!(GlobalVariables.lives < 0 || (EnemiesAtEdge() == true && _enemiesCount >= _totalEnemies) || _remainingEnemies <= 0)) // !(EnemiesAtEdge() == true && _remainingEnemies > 0 || _remainingEnemies > 0) 
+		while (!(GlobalVariables.lives < 0 || (EnemiesAtEdge() == true && _enemiesCount >= _totalEnemies) || _remainingEnemies <= 0))
 			yield return null;
 	}
 
@@ -136,15 +138,28 @@ public class GameManager : MonoBehaviour {
 		if (GlobalVariables.lives >= 0) {
 			_audioSource.clip = ac_portalEnter;
 			_audioSource.Play ();
-			StartCoroutine (FlashScreen (4f, 0.1f));
+			//StartCoroutine (FlashScreen (4f, 0.1f));
 			yield return new WaitForSeconds (1);
 			_playerRef.GetComponent<PlayerShip> ().movingForward = true;
 		
 		} else {
+			musicAS.Stop ();
 			musicAS.clip = ac_gameover;
 			musicAS.Play ();
 		}
-		yield return new WaitForSeconds(6);
+
+		while (_playerRef.transform.position.z < _mapManager.depth && GlobalVariables.lives >= 0) // Wait for a game over or clear level
+			yield return null;
+
+
+
+		if (GlobalVariables.lives >= 0) {
+			StartCoroutine (FlashScreen (0f, 0.1f, 1f));
+			yield return new WaitForSeconds (1);
+		} else { // If the player game overs when warping, we refresh status
+			SetEndMessage(); 
+			yield return new WaitForSeconds (5);
+		}
 	}
 
 	void SpawnPlayerShip() {
@@ -237,8 +252,15 @@ public class GameManager : MonoBehaviour {
 		MapLine newMapLine = _mapManager.mapLines [index];
 		float _mapDepth = _mapManager.depth;
 		GameObject newShip = Instantiate (flipperPrefab, newMapLine.GetMidPoint() + new Vector3 (0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
-		newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
-		newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
+		if (test == true) {
+			newShip.GetComponent<Flipper_New>().curMapLine = newMapLine;
+			newShip.GetComponent<Flipper_New>().moveSpeed *= currentRound * speedMulti;
+		} else {
+			newShip.GetComponent<Flipper>().SetMapLine (newMapLine);
+			newShip.GetComponent<Flipper>().movementForce = currentRound * speedMulti;
+		}
+
+
 	}
 
 	public void SpawnTanker()
@@ -256,7 +278,7 @@ public class GameManager : MonoBehaviour {
         int index = Random.Range(1, _mapManager.mapLines.Length - 1);
         MapLine newMapLine = _mapManager.mapLines[index];
         float _mapDepth = _mapManager.depth;
-        GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), flipperPrefab.transform.rotation);
+		GameObject powerUp = Instantiate(powerUpPrefab, newMapLine.GetMidPoint() + new Vector3(0, 0, 1 * _mapDepth), powerUpPrefab.transform.rotation);
         powerUp.GetComponent<PowerUp>().curMapLine = newMapLine;
         powerUp.GetComponent<PowerUp>().moveSpeed *= currentRound * speedMulti;
     }
@@ -271,9 +293,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	bool EnemiesAtEdge() {
+		// Only flippers reach edge
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		foreach (GameObject enemy in enemies) {
-			if (enemy.transform.position.z > 0.1f)
+			if (enemy.GetComponent<Flipper>() != null && enemy.transform.position.z > 0.1f)
+				return false;
+			else if (test == true && enemy.GetComponent<Flipper_New> () != null && enemy.transform.position.z > 0.1f)
 				return false;
 		}
 		return true;
@@ -360,6 +385,7 @@ public class GameManager : MonoBehaviour {
 			// Spikers persist
 			if (enemy.GetComponent<Spiker>() != null) continue;
 			Destroy (enemy); // Note that Destroy doesn't call OnDeath, meaning that _remainingEnemies won't decrease and score won't increase
+			_remainingEnemies--; // If remainingEnemies doesn't decrease, the game will not end
 		}
 	}
 
