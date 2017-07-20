@@ -147,9 +147,6 @@ public class PlayerShip : MonoBehaviour, IShipBase {
 				curMapLine = newMapLine;
 			}
 		} else {
-
-
-
 			Vector3 newPos = _nextMapLine.GetMidPoint();
 			if (movingForward == true) {
 				newPos = newPos + new Vector3 (0f, 0f, transform.position.z + moveSpeed * 0.02f);
