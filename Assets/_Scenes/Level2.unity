@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08491983, g: 0.12897712, b: 0.18492413, a: 1}
+  m_IndirectSpecularColor: {r: 0.0848098, g: 0.12897739, b: 0.1848979, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 388281285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.2}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1720790435}
@@ -912,13 +912,6 @@ MonoBehaviour:
   flipperSpawnDelay: 1
   tankerSpawnDelay: 3
   powerUpSpawnDelay: 15
-  totalFlippers: 80
-  totalTankers: 40
-  totalSpikers: 4
-  totalPowerUps: 3
-  flipperSpawnDelay: 1
-  tankerSpawnDelay: 2
-  powerUpSpawnDelay: 0
   currentRound: 2
   nextScene: 0
   totalLives: 3
