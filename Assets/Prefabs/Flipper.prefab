@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementForce: 0
   shellSpeed: 0
-  reloadTime: 0
+  reloadTime: 0.5
   levelNum: 0
   flipperShell: {fileID: 1684890067723236, guid: 03d67532dafe1ab40b3b38233937423d,
     type: 2}
