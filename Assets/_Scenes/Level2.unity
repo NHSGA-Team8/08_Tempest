@@ -913,7 +913,7 @@ MonoBehaviour:
   tankerSpawnDelay: 3
   powerUpSpawnDelay: 15
   currentRound: 2
-  nextScene: 0
+  nextScene: 4
   totalLives: 3
   speedMulti: 2
   test: 0
