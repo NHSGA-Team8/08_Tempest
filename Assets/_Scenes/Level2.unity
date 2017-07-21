@@ -522,7 +522,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_RootOrder
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -530,7 +530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_LocalScale.x
-      value: 39.00407
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_LocalScale.y
@@ -538,7 +538,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_LocalScale.z
-      value: 93.238014
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 5b9525d6a0ef4e14fb8fb36d89478394, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -711,11 +711,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapVertices:
-  - {x: -2, y: -1.1, z: 0}
+  - {x: -1.9, y: -1.1, z: 0}
   - {x: -0.95, y: -1.1, z: 0}
   - {x: 0, y: -1.1, z: 0}
   - {x: 0.95, y: -1.1, z: 0}
-  - {x: 2, y: -1.1, z: 0}
+  - {x: 1.9, y: -1.1, z: 0}
   - {x: 1.6, y: -0.6, z: 0}
   - {x: 1.2, y: 0, z: 0}
   - {x: 0.95, y: 0.55, z: 0}
@@ -905,17 +905,17 @@ MonoBehaviour:
     type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
-  totalFlippers: 100
-  totalTankers: 50
+  totalFlippers: 75
+  totalTankers: 25
   totalSpikers: 4
-  totalPowerUps: 3
-  flipperSpawnDelay: 0.75
-  tankerSpawnDelay: 1.5
-  powerUpSpawnDelay: 0
+  totalPowerUps: 5
+  flipperSpawnDelay: 1
+  tankerSpawnDelay: 3
+  powerUpSpawnDelay: 15
   currentRound: 2
   nextScene: 0
   totalLives: 3
-  speedMulti: 5
+  speedMulti: 2
   test: 0
   ac_portalEnter: {fileID: 8300000, guid: aacc6bdd288a9f44ca50b566851c1a5e, type: 3}
   ac_portalDuring: {fileID: 8300000, guid: 0eb5b5611462b2d43ac8e2ea1380ac47, type: 3}
