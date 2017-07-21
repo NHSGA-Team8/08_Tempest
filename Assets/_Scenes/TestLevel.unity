@@ -892,10 +892,10 @@ MonoBehaviour:
   totalFlippers: 100
   totalTankers: 0
   totalSpikers: 3
-  totalPowerUps: 5
+  totalPowerUps: 10
   flipperSpawnDelay: 0.5
   tankerSpawnDelay: 3
-  powerUpSpawnDelay: 5
+  powerUpSpawnDelay: 1
   currentRound: 1
   nextScene: 0
   totalLives: 3
