@@ -75,6 +75,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		Vector3 newDirVec = new Vector3 (-curDirVec.y, curDirVec.x, 0);
 		transform.rotation = Quaternion.LookRotation(new Vector3(0f,0f,1f), newDirVec);
 		//transform.Rotate(newDirVec);
+		_finishedSwitch = true;
 		StartCoroutine (FirePeriodically ());
 		/*
 		if (Random.value > 0.5)
@@ -126,12 +127,14 @@ public class Flipper : MonoBehaviour, IShipBase
 				thisMapLine = _nextMapLine;
 			}
 			*/
-			if (!reachedEnd && !_straightMovement) {
+			if (!reachedEnd && !_straightMovement)
+			{
 				Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 				transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 				if (_finishedSwitch) {
 					//StartCoroutine (SwitchLanes (transform.position.z));
 					//StartCoroutine (SwitchLanes (_newPosZ.z));
+					Debug.Log ("Reach Condition for Lane Switching");
 					StartCoroutine (SwitchLanes ());
 				}
 			}
@@ -174,10 +177,10 @@ public class Flipper : MonoBehaviour, IShipBase
 				_nextMapLine = thisMapLine;
 			} else if (_isCW == 1) {
 				_nextMapLine = thisMapLine.leftLine;
-				Debug.Log ("Left");
+				//Debug.Log ("Left");
 			} else {
 				_nextMapLine = thisMapLine.rightLine;
-				Debug.Log ("Right");
+				//Debug.Log ("Right");
 			}
 			if (_nextMapLine != null) {
 				thisMapLine = _nextMapLine;
