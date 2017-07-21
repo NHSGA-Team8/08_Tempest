@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: 06963b9174e20104d9188951824d0a06
-timeCreated: 1500592832
+timeCreated: 1500596749
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - flipperShell: {fileID: 1684890067723236, guid: 03d67532dafe1ab40b3b38233937423d,
+      type: 2}
+  - player: {fileID: 1627220439160560, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
+  - flipperEnemy: {fileID: 1417876579777458, guid: 08c045a1ddb1ee940aa99215caded0e9,
+      type: 2}
+  - explodePrefab: {instanceID: 0}
+  - soundFire: {instanceID: 0}
+  - soundDeath: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
