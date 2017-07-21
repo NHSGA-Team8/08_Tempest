@@ -292,10 +292,10 @@ MonoBehaviour:
   shellSpeed: 0
   reloadTime: 0
   levelNum: 0
-  flipperShell: {fileID: 1010819511925262, guid: db0bb1fa1bb1b6344be213f7b4a27ea6,
+  flipperShell: {fileID: 1684890067723236, guid: 03d67532dafe1ab40b3b38233937423d,
     type: 2}
   player: {fileID: 0}
-  flipperEnemy: {fileID: 0}
+  flipperEnemy: {fileID: 1417876579777458}
   respawnTime: 0
   inputAxis: Horizontal
   explodePrefab: {fileID: 1151035608467288, guid: 8158ca404c4dbd44bada57971d442dad,
