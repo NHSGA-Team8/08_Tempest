@@ -129,12 +129,13 @@ public class Flipper : MonoBehaviour, IShipBase
 			*/
 			if (!reachedEnd && !_straightMovement)
 			{
+				//Debug.Log("Reach first condition");
 				Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 				transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 				if (_finishedSwitch) {
 					//StartCoroutine (SwitchLanes (transform.position.z));
 					//StartCoroutine (SwitchLanes (_newPosZ.z));
-					Debug.Log ("Reach Condition for Lane Switching");
+					//Debug.Log ("Reach Condition for Lane Switching");
 					StartCoroutine (SwitchLanes ());
 				}
 			}
