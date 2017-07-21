@@ -195,8 +195,8 @@ public class Flipper : MonoBehaviour, IShipBase
 			hasFinishedMoving = true;
 		}
 	}
-	private IEnumerator SwitchLanes ()
 	//private IEnumerator SwitchLanes (float z)
+	private IEnumerator SwitchLanes ()
 	{
 		_finishedSwitch = false;
 		yield return new WaitForSeconds (switchTime);
@@ -278,7 +278,7 @@ public class Flipper : MonoBehaviour, IShipBase
 	private IEnumerator FirePeriodically()
 	{
 		yield return new WaitForSeconds (reloadTime);
-		if (GameObject.Find("PlayerShip") != null)
+		//if (GameObject.Find ("PlayerShip") != null)
 			Fire ();
 	}
 

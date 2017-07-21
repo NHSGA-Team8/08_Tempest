@@ -478,7 +478,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -640,22 +640,22 @@ Prefab:
     - target: {fileID: 65448499098038040, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
       propertyPath: m_Size.z
-      value: 0.50196713
+      value: 0.38402635
       objectReference: {fileID: 0}
     - target: {fileID: 65448499098038040, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
       propertyPath: m_Center.z
-      value: -0.046066433
+      value: -0.038294017
       objectReference: {fileID: 0}
     - target: {fileID: 65448499098038040, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
       propertyPath: m_Size.x
-      value: 0.51072747
+      value: 0.38089156
       objectReference: {fileID: 0}
     - target: {fileID: 65448499098038040, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
       propertyPath: m_Center.x
-      value: -0.0003193617
+      value: -0.0045259297
       objectReference: {fileID: 0}
     - target: {fileID: 114275928239303732, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
         type: 2}
@@ -689,6 +689,11 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 388281289}
+    - target: {fileID: 82899460363695682, guid: 17ba5ccab97ce9e4d9134f5da03d64e9,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17ba5ccab97ce9e4d9134f5da03d64e9, type: 2}
   m_IsPrefabParent: 0
@@ -889,8 +894,8 @@ MonoBehaviour:
     type: 2}
   spawnEffect: {fileID: 1159959581457468, guid: 2558a8fd7dfb20040ab398e50a0093bc,
     type: 2}
-  totalFlippers: 90
-  totalTankers: 30
+  totalFlippers: 40
+  totalTankers: 20
   totalSpikers: 0
   totalPowerUps: 0
   flipperSpawnDelay: 1

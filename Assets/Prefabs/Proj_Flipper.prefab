@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95030659167120750}
   - component: {fileID: 54691869449558382}
   - component: {fileID: 135734538441780780}
+  - component: {fileID: 136003546271400384}
   m_Layer: 0
   m_Name: Proj_Flipper
   m_TagString: Projectile
@@ -127,3 +128,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136003546271400384
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638749284954108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.07914241
+  m_Height: 0.1418064
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: -0.06137723}
