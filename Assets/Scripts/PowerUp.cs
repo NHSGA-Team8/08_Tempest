@@ -69,13 +69,13 @@ public class PowerUp : MonoBehaviour {
         Destroy(gameObject);
 
 		// Shield
-		POWERUPS powerup = (POWERUPS)Random.Range(0, 1);
-		if (powerup == POWERUPS.Shield) {
+		int powerup = (int)(Random.value * 2f);
+		if (powerup == 1) {
 			_playerRef.SetGod (5);
 			GameObject newEffect = Instantiate (godPrefab, _playerRef.transform.position, _playerRef.transform.rotation);
 			newEffect.transform.SetParent (_playerRef.transform);
 			Destroy (newEffect, 5);
-		} else if (powerup == POWERUPS.Mine) {
+		} else {
 			foreach (MapLine ml in _mapManager.mapLines) {
 				if (Random.Range (0, 10) >= 7) {
 					GameObject shellInstance = Instantiate (minePrefab, ml.GetMidPoint(), Quaternion.Euler(-transform.forward));
