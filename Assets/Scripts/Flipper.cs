@@ -85,12 +85,12 @@ public class Flipper : MonoBehaviour, IShipBase
 	}
 
 	// Update is called once per frame
-	//Fi
-	void Update ()
+	void Update () //Not physics, meaning not FixedUpdate ()
 	{
 		if (transform.position.z <= 0)
 		{
 			rb.constraints = RigidbodyConstraints.FreezePositionZ;
+			transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
 			reachedEnd = true;
 		}
 
@@ -98,7 +98,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		{
 			StartCoroutine (RotateAroundEdge ());
 		}
-		else if (_straightMovement)
+		else if (_straightMovement && !reachedEnd)
 		{
 			//Only move in Z direction, aka depth
 			//rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
@@ -126,7 +126,7 @@ public class Flipper : MonoBehaviour, IShipBase
 				thisMapLine = _nextMapLine;
 			}
 			*/
-			if (!reachedEnd) {
+			if (!reachedEnd && !_straightMovement) {
 				Vector3 _newPosZ = transform.position + transform.forward * (Time.deltaTime * movementForce * -1);
 				transform.position = new Vector3 (transform.position.x, transform.position.y, _newPosZ.z);
 				if (_finishedSwitch) {
@@ -144,7 +144,6 @@ public class Flipper : MonoBehaviour, IShipBase
 		yield return new WaitForSeconds (switchTime);
 		Vector3 _newPos;
 		MapLine _newMapLine, _nextMapLine;
-		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
 		//rb.MovePosition (new Vector3 (transform.position.x, transform.position.y, 0));
 		//rb.constraints = RigidbodyConstraints.FreezePositionZ;
 		if (GameObject.Find ("Player") != null) {
@@ -202,7 +201,7 @@ public class Flipper : MonoBehaviour, IShipBase
 		_finishedSwitch = false;
 		yield return new WaitForSeconds (switchTime);
 		Vector3 _newPos;
-		MapLine _newMapLine, _nextMapLine;
+		MapLine _nextMapLine;
 		_nextMapLine = thisMapLine.leftLine;
 		if (_nextMapLine != null) {
 			thisMapLine = _nextMapLine;
